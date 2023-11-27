@@ -8,3 +8,13 @@ datagroup: monthly_on_day_2 {
 datagroup: does_not_update {
   sql_trigger: 1 ;;
 }
+
+datagroup: daily_datagroup {
+  sql_trigger: select MAX(partition_date) from `@{BILLING_TABLE}` ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: near_real_time {
+  sql_trigger: select count(*) from `@{BILLING_TABLE}` ;;
+  max_cache_age: "1 hour"
+}

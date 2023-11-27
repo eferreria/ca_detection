@@ -8,12 +8,12 @@
   - title: New Tile
     name: New Tile
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: single_value
-    fields: [detect_anomalies_net_cost.row_count, detect_anomalies_net_cost.anomaly_count,
-      detect_anomalies_net_cost.anomaly_pct]
+    fields: [project_detect_anomalies_net_cost.row_count, project_detect_anomalies_net_cost.anomaly_count,
+      project_detect_anomalies_net_cost.anomaly_pct]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
+      project_detect_anomalies_net_cost.usage_start_week: before today
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -56,12 +56,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [detect_anomalies_net_cost.anomaly_count, detect_anomalies_net_cost.anomaly_pct]
+    hidden_fields: [project_detect_anomalies_net_cost.anomaly_count, project_detect_anomalies_net_cost.anomaly_pct]
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 9
     col: 2
     width: 4
@@ -69,12 +69,12 @@
   - title: New Tile
     name: New Tile (2)
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: single_value
-    fields: [detect_anomalies_net_cost.row_count, detect_anomalies_net_cost.anomaly_count,
-      detect_anomalies_net_cost.anomaly_pct]
+    fields: [project_detect_anomalies_net_cost.row_count, project_detect_anomalies_net_cost.anomaly_count,
+      project_detect_anomalies_net_cost.anomaly_pct]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
+      project_detect_anomalies_net_cost.usage_start_week: before today
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -117,12 +117,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [detect_anomalies_net_cost.anomaly_pct, detect_anomalies_net_cost.row_count]
+    hidden_fields: [project_detect_anomalies_net_cost.anomaly_pct, project_detect_anomalies_net_cost.row_count]
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 9
     col: 6
     width: 4
@@ -130,12 +130,12 @@
   - title: New Tile
     name: New Tile (3)
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: single_value
-    fields: [detect_anomalies_net_cost.row_count, detect_anomalies_net_cost.anomaly_count,
-      detect_anomalies_net_cost.anomaly_pct]
+    fields: [project_detect_anomalies_net_cost.row_count, project_detect_anomalies_net_cost.anomaly_count,
+      project_detect_anomalies_net_cost.anomaly_pct]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
+      project_detect_anomalies_net_cost.usage_start_week: before today
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -178,12 +178,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [detect_anomalies_net_cost.row_count, detect_anomalies_net_cost.anomaly_count]
+    hidden_fields: [project_detect_anomalies_net_cost.row_count, project_detect_anomalies_net_cost.anomaly_count]
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 9
     col: 10
     width: 4
@@ -262,12 +262,12 @@
   - title: Project Anomalies by Week
     name: Project Anomalies by Week
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: looker_line
-    fields: [detect_anomalies_net_cost.anomaly_count, detect_anomalies_net_cost.usage_start_week]
+    fields: [project_detect_anomalies_net_cost.anomaly_count, project_detect_anomalies_net_cost.usage_start_week]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
-    sorts: [detect_anomalies_net_cost.usage_start_week desc]
+      project_detect_anomalies_net_cost.usage_start_week: before today
+    sorts: [project_detect_anomalies_net_cost.usage_start_week desc]
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -327,10 +327,10 @@
     header_font_size: 12
     rows_font_size: 12
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 12
     col: 12
     width: 12
@@ -338,19 +338,19 @@
   - title: Anomalies by Project
     name: Anomalies by Project
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: looker_grid
-    fields: [detect_anomalies_net_cost.project_name, detect_anomalies_net_cost.anomaly_count,
-      detect_anomalies_net_cost.avg_time_series_data, detect_anomalies_net_cost.avg_absolute_delta,
-      detect_anomalies_net_cost.anomaly_positive_pct, detect_anomalies_net_cost.anomaly_negative_pct]
+    fields: [project_detect_anomalies_net_cost.project_name, project_detect_anomalies_net_cost.anomaly_count,
+      project_detect_anomalies_net_cost.avg_time_series_data, project_detect_anomalies_net_cost.avg_absolute_delta,
+      project_detect_anomalies_net_cost.anomaly_positive_pct, project_detect_anomalies_net_cost.anomaly_negative_pct]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
-    sorts: [detect_anomalies_net_cost.anomaly_count desc]
+      project_detect_anomalies_net_cost.usage_start_week: before today
+    sorts: [project_detect_anomalies_net_cost.anomaly_count desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${detect_anomalies_net_cost.anomaly_count}*${detect_anomalies_net_cost.avg_absolute_delta}"
+      expression: "${project_detect_anomalies_net_cost.anomaly_count}*${project_detect_anomalies_net_cost.avg_absolute_delta}"
       label: Estimated Impact
       value_format:
       value_format_name: usd_0
@@ -374,21 +374,21 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
-    column_order: ["$$$_row_numbers_$$$", detect_anomalies_net_cost.project_name,
-      detect_anomalies_net_cost.avg_time_series_data, detect_anomalies_net_cost.anomaly_count,
-      detect_anomalies_net_cost.avg_absolute_delta, estimated_impact, detect_anomalies_net_cost.anomaly_positive_pct,
-      detect_anomalies_net_cost.anomaly_negative_pct]
+    column_order: ["$$$_row_numbers_$$$", project_detect_anomalies_net_cost.project_name,
+      project_detect_anomalies_net_cost.avg_time_series_data, project_detect_anomalies_net_cost.anomaly_count,
+      project_detect_anomalies_net_cost.avg_absolute_delta, estimated_impact, project_detect_anomalies_net_cost.anomaly_positive_pct,
+      project_detect_anomalies_net_cost.anomaly_negative_pct]
     show_totals: true
     show_row_totals: true
     truncate_header: false
     minimum_column_width: 75
     series_labels:
-      detect_anomalies_net_cost.avg_absolute_delta: Average Deviation Amount
-      detect_anomalies_net_cost.anomaly_positive_pct: "% of Overrun Anomalies"
-      detect_anomalies_net_cost.anomaly_negative_pct: "% of Underrun Anomalies"
-      detect_anomalies_net_cost.avg_time_series_data: Average Daily Cost
+      project_detect_anomalies_net_cost.avg_absolute_delta: Average Deviation Amount
+      project_detect_anomalies_net_cost.anomaly_positive_pct: "% of Overrun Anomalies"
+      project_detect_anomalies_net_cost.anomaly_negative_pct: "% of Underrun Anomalies"
+      project_detect_anomalies_net_cost.avg_time_series_data: Average Daily Cost
     series_cell_visualizations:
-      detect_anomalies_net_cost.anomaly_count:
+      project_detect_anomalies_net_cost.anomaly_count:
         is_active: false
       estimated_impact:
         is_active: true
@@ -406,8 +406,8 @@
         align: right
     conditional_formatting: []
     series_value_format:
-      detect_anomalies_net_cost.avg_time_series_data: "$#,##0.00"
-      detect_anomalies_net_cost.avg_absolute_delta: "$#,##0.00"
+      project_detect_anomalies_net_cost.avg_time_series_data: "$#,##0.00"
+      project_detect_anomalies_net_cost.avg_absolute_delta: "$#,##0.00"
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -452,10 +452,10 @@
     note_display: hover
     note_text: Click on Project Name to drill into anomaly overview by project.
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 12
     col: 0
     width: 12
@@ -473,11 +473,11 @@
   - title: New Tile (Copy)
     name: New Tile (Copy)
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: single_value
-    fields: [detect_anomalies_net_cost.avg_absolute_delta]
+    fields: [project_detect_anomalies_net_cost.avg_absolute_delta]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
+      project_detect_anomalies_net_cost.usage_start_week: before today
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -523,10 +523,10 @@
     defaults_version: 1
     hidden_fields: []
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 9
     col: 14
     width: 4
@@ -543,16 +543,16 @@
   - title: New Tile (Copy 2)
     name: New Tile (Copy 2)
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: single_value
-    fields: [detect_anomalies_net_cost.avg_absolute_delta, detect_anomalies_net_cost.anomaly_count]
+    fields: [project_detect_anomalies_net_cost.avg_absolute_delta, project_detect_anomalies_net_cost.anomaly_count]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
+      project_detect_anomalies_net_cost.usage_start_week: before today
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${detect_anomalies_net_cost.anomaly_count}*${detect_anomalies_net_cost.avg_absolute_delta}"
+      expression: "${project_detect_anomalies_net_cost.anomaly_count}*${project_detect_anomalies_net_cost.avg_absolute_delta}"
       label: Estimated Impact
       value_format:
       value_format_name: usd_0
@@ -600,12 +600,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [detect_anomalies_net_cost.avg_absolute_delta, detect_anomalies_net_cost.anomaly_count]
+    hidden_fields: [project_detect_anomalies_net_cost.avg_absolute_delta, project_detect_anomalies_net_cost.anomaly_count]
     listen:
-      Usage Date: detect_anomalies_net_cost.usage_start_date
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
     row: 9
     col: 18
     width: 4
@@ -631,9 +631,9 @@
       display: popover
       options: []
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.usage_start_date
+    field: project_detect_anomalies_net_cost.usage_start_date
   - name: Anomaly Probability Threshold
     title: Anomaly Probability Threshold
     type: field_filter
@@ -644,9 +644,9 @@
       type: dropdown_menu
       display: inline
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_anomaly_prob_threshold
+    field: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
   - name: Total Cost Difference from Threshold
     title: Total Cost Difference from Threshold
     type: field_filter
@@ -657,9 +657,9 @@
       type: dropdown_menu
       display: inline
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_absolute_delta_threshold
+    field: project_detect_anomalies_net_cost.set_absolute_delta_threshold
   - name: Percent Difference from Threshold
     title: Percent Difference from Threshold
     type: field_filter
@@ -670,6 +670,6 @@
       type: dropdown_menu
       display: inline
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_absolute_percent_threshold
+    field: project_detect_anomalies_net_cost.set_absolute_percent_threshold

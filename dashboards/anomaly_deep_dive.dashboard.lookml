@@ -8,21 +8,21 @@
   - title: Anomaly Details
     name: Anomaly Details
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: looker_grid
-    fields: [detect_anomalies_net_cost.usage_start_date, detect_anomalies_net_cost.anomaly_direction,
-      detect_anomalies_net_cost.total_cost, detect_anomalies_net_cost.lower_bound,
-      detect_anomalies_net_cost.upper_bound, detect_anomalies_net_cost.anomaly_probability,
-      detect_anomalies_net_cost.is_anomaly, detect_anomalies_net_cost.absolute_distance_from_threshold,
-      detect_anomalies_net_cost.absolute_percent_from_threshold]
+    fields: [project_detect_anomalies_net_cost.usage_start_date, project_detect_anomalies_net_cost.anomaly_direction,
+      project_detect_anomalies_net_cost.total_cost, project_detect_anomalies_net_cost.lower_bound,
+      project_detect_anomalies_net_cost.upper_bound, project_detect_anomalies_net_cost.anomaly_probability,
+      project_detect_anomalies_net_cost.is_anomaly, project_detect_anomalies_net_cost.absolute_distance_from_threshold,
+      project_detect_anomalies_net_cost.absolute_percent_from_threshold]
     filters:
-      detect_anomalies_net_cost.usage_start_week: before today
-    sorts: [detect_anomalies_net_cost.usage_start_date desc]
+      project_detect_anomalies_net_cost.usage_start_week: before today
+    sorts: [project_detect_anomalies_net_cost.usage_start_date desc]
     limit: 1000
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: mean(offset_list(${detect_anomalies_net_cost.total_cost},0,7))
+      expression: mean(offset_list(${project_detect_anomalies_net_cost.total_cost},0,7))
       label: 7 Day Average
       value_format:
       value_format_name: usd
@@ -30,7 +30,7 @@
       table_calculation: 7_day_average
       _type_hint: number
     - category: table_calculation
-      expression: mean(offset_list(${detect_anomalies_net_cost.total_cost},0,30))
+      expression: mean(offset_list(${project_detect_anomalies_net_cost.total_cost},0,30))
       label: 30 Day Average
       value_format:
       value_format_name: usd
@@ -54,36 +54,36 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
-    column_order: ["$$$_row_numbers_$$$", detect_anomalies_net_cost.usage_start_date,
-      detect_anomalies_net_cost.anomaly_direction, detect_anomalies_net_cost.total_cost,
-      detect_anomalies_net_cost.absolute_distance_from_threshold, detect_anomalies_net_cost.absolute_percent_from_threshold,
-      detect_anomalies_net_cost.anomaly_probability, detect_anomalies_net_cost.lower_bound,
-      detect_anomalies_net_cost.upper_bound, 7_day_average, 30_day_average]
+    column_order: ["$$$_row_numbers_$$$", project_detect_anomalies_net_cost.usage_start_date,
+      project_detect_anomalies_net_cost.anomaly_direction, project_detect_anomalies_net_cost.total_cost,
+      project_detect_anomalies_net_cost.absolute_distance_from_threshold, project_detect_anomalies_net_cost.absolute_percent_from_threshold,
+      project_detect_anomalies_net_cost.anomaly_probability, project_detect_anomalies_net_cost.lower_bound,
+      project_detect_anomalies_net_cost.upper_bound, 7_day_average, 30_day_average]
     show_totals: true
     show_row_totals: true
     truncate_header: false
     minimum_column_width: 75
     series_labels:
-      detect_anomalies_net_cost.absolute_distance_from_threshold: Deviation ($)
-      detect_anomalies_net_cost.absolute_percent_from_threshold: Deviation (%)
+      project_detect_anomalies_net_cost.absolute_distance_from_threshold: Deviation ($)
+      project_detect_anomalies_net_cost.absolute_percent_from_threshold: Deviation (%)
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#112B4A",
         font_color: !!null '', color_application: {collection_id: cme-group-primary,
           palette_id: cme-group-primary-sequential-0}, bold: false, italic: false,
-        strikethrough: false, fields: [detect_anomalies_net_cost.absolute_distance_from_threshold]}]
+        strikethrough: false, fields: [project_detect_anomalies_net_cost.absolute_distance_from_threshold]}]
     series_value_format:
-      detect_anomalies_net_cost.lower_bound:
+      project_detect_anomalies_net_cost.lower_bound:
         name: usd
         decimals: '2'
         format_string: "$#,##0.00"
         label: U.S. Dollars (2)
         label_prefix: U.S. Dollars
-      detect_anomalies_net_cost.upper_bound:
+      project_detect_anomalies_net_cost.upper_bound:
         name: usd
         decimals: '2'
         format_string: "$#,##0.00"
         label: U.S. Dollars (2)
         label_prefix: U.S. Dollars
-      detect_anomalies_net_cost.anomaly_probability:
+      project_detect_anomalies_net_cost.anomaly_probability:
         name: percent_2
         decimals: '2'
         format_string: "#,##0.00%"
@@ -129,13 +129,13 @@
     hidden_pivots: {}
     defaults_version: 1
     hidden_fields:
-    hidden_points_if_no: [detect_anomalies_net_cost.is_anomaly]
+    hidden_points_if_no: [project_detect_anomalies_net_cost.is_anomaly]
     listen:
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Project Name: detect_anomalies_net_cost.project_name
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
-      Usage Date: detect_anomalies_net_cost.usage_start_date
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Project Name: project_detect_anomalies_net_cost.project_name
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
     row: 4
     col: 0
     width: 16
@@ -544,11 +544,11 @@
   - title: New Tile
     name: New Tile
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     type: looker_grid
-    fields: [detect_anomalies_net_cost.link_to_gcp_console]
+    fields: [project_detect_anomalies_net_cost.link_to_gcp_console]
     filters: {}
-    sorts: [detect_anomalies_net_cost.link_to_gcp_console]
+    sorts: [project_detect_anomalies_net_cost.link_to_gcp_console]
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -573,7 +573,7 @@
     truncate_header: false
     minimum_column_width: 75
     series_labels:
-      detect_anomalies_net_cost.link_to_gcp_console: "​"
+      project_detect_anomalies_net_cost.link_to_gcp_console: "​"
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -608,11 +608,11 @@
     defaults_version: 1
     title_hidden: true
     listen:
-      Total Cost Difference from Threshold: detect_anomalies_net_cost.set_absolute_delta_threshold
-      Anomaly Probability Threshold: detect_anomalies_net_cost.set_anomaly_prob_threshold
-      Project Name: detect_anomalies_net_cost.project_name
-      Percent Difference from Threshold: detect_anomalies_net_cost.set_absolute_percent_threshold
-      Usage Date: detect_anomalies_net_cost.usage_start_date
+      Total Cost Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_delta_threshold
+      Anomaly Probability Threshold: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
+      Project Name: project_detect_anomalies_net_cost.project_name
+      Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
+      Usage Date: project_detect_anomalies_net_cost.usage_start_date
     row: 2
     col: 19
     width: 5
@@ -638,9 +638,9 @@
       display: popover
       options: []
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.usage_start_date
+    field: project_detect_anomalies_net_cost.usage_start_date
   - name: Project Name
     title: Project Name
     type: field_filter
@@ -651,9 +651,9 @@
       type: advanced
       display: popover
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.project_name
+    field: project_detect_anomalies_net_cost.project_name
   - name: Anomaly Probability Threshold
     title: Anomaly Probability Threshold
     type: field_filter
@@ -664,9 +664,9 @@
       type: dropdown_menu
       display: inline
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_anomaly_prob_threshold
+    field: project_detect_anomalies_net_cost.set_anomaly_prob_threshold
   - name: Minimum SKU Cost Threshold
     title: Minimum SKU Cost Threshold
     type: field_filter
@@ -694,9 +694,9 @@
       type: dropdown_menu
       display: overflow
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_absolute_delta_threshold
+    field: project_detect_anomalies_net_cost.set_absolute_delta_threshold
   - name: Percent Difference from Threshold
     title: Percent Difference from Threshold
     type: field_filter
@@ -707,6 +707,6 @@
       type: dropdown_menu
       display: overflow
     model: cost_anomaly_detection
-    explore: detect_anomalies_net_cost
+    explore: project_detect_anomalies_net_cost
     listens_to_filters: []
-    field: detect_anomalies_net_cost.set_absolute_percent_threshold
+    field: project_detect_anomalies_net_cost.set_absolute_percent_threshold

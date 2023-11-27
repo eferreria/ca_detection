@@ -17,5 +17,12 @@ constant: FORECAST_HORIZON {
 }
 
 constant: BILLING_TABLE {
-  value: "`eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`"
+  value: "eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B"
+}
+
+
+# Constants to switch back and forth from UDD and LookML dashboard
+constant: ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD {
+  value: "cost_anomaly_detection::anomaly_overview_by_project"
+  # value: "19"
 }

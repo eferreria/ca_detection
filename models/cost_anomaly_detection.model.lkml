@@ -2,7 +2,8 @@ connection: "bigquery_connection"
 
 include: "/views/**/*.view.lkml"
 include: "/config/datagroups.lkml"
-# include: "/dashboards/*"
+include: "/explores/gcp_billing.explore"
+include: "/dashboards/overview_of_anomalies.dashboard"
 
 label: "Anomaly Detection"
 
@@ -24,36 +25,37 @@ explore: bqml_model_info {
 
 #### GCP Project Anomaly Detection Explores ####
 #(
-explore: input_data_net_cost {
-  label: "BQML Anomaly Detection: Input Data (GCP Project)"
-  hidden: yes
+explore: project_input_data_net_cost {
+  label: "Project Input Data (GCP Project)"
+  hidden: no
 }
 
-explore: create_model_net_cost {
-  label: "BQML Anomaly Detection: Create Model (GCP Project)"
-  hidden: yes
+explore: project_create_model_net_cost {
+  label: "Project Create Model (GCP Project)"
+  hidden: no
 }
 
-explore: arima_evaluate_net_cost {
-  label: "BQML Anomaly Detection: ARIMA Evaluate (GCP Project)"
-  hidden: yes
+explore: project_arima_evaluate_net_cost {
+  label: "Project ARIMA Evaluate (GCP Project)"
+  hidden: no
 }
 
-explore: explain_forecast_net_cost {
-  label: "BQML Anomaly Detection: Explain Forecast (GCP Project)"
-  hidden: yes
-  join: detect_anomalies_net_cost {
+explore: project_explain_forecast_net_cost {
+  label: "Project Explain Forecast (GCP Project)"
+  hidden: no
+  join: project_detect_anomalies_net_cost {
     relationship: one_to_one
     type: left_outer
-    sql_on: ${explain_forecast_net_cost.project_name} = ${detect_anomalies_net_cost.project_name}
-      AND ${explain_forecast_net_cost.time_series_date} = ${detect_anomalies_net_cost.usage_start_date};;
+    sql_on: ${project_explain_forecast_net_cost.project_id} = ${project_detect_anomalies_net_cost.project_id}
+      AND ${project_explain_forecast_net_cost.time_series_date} = ${project_detect_anomalies_net_cost.usage_start_date};;
   }
 }
 
-explore: detect_anomalies_net_cost {
-  label: "BQML Anomaly Detection: Detect Anomalies (GCP Project)"
-  hidden: yes
+explore: project_detect_anomalies_net_cost {
+  label: "Project Detect Anomalies (GCP Project)"
+  hidden: no
   # Add this filter so that underrun anomalies for the current day aren't flagged.
-  # sql_always_where: ${is_underrun_anomaly_today} ;;
+  # sql_always_where: ${is_underrun_anomaly_today} ;;]
+
 }
 #)
