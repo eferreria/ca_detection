@@ -28,5 +28,5 @@ constant: ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD {
 }
 
 constant: PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD {
-  value: "cost_anomaly_detection::anomaly_deep_dive"
+  value: "cost_anomaly_detection::project_anomaly_deep_dive"
 }
