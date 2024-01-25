@@ -69,8 +69,7 @@
       7_day_average: 7 Day Average Cost
       30_day_average: 30 Day Average Cost
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#112B4A",
-        font_color: !!null '', color_application: {collection_id: cme-group-primary,
-          palette_id: cme-group-primary-sequential-0}, bold: false, italic: false,
+        font_color: !!null '', bold: false, italic: false,
         strikethrough: false, fields: [project_detect_anomalies_net_cost.absolute_distance_from_threshold]}]
     series_value_format:
       project_detect_anomalies_net_cost.lower_bound: "$#,##0.00"
@@ -139,14 +138,14 @@
   - title: Explainable AI Metrics (hover for details)
     name: Explainable AI Metrics (hover for details)
     model: cost_anomaly_detection
-    explore: explain_forecast_net_cost
+    explore: project_explain_forecast_net_cost
     type: looker_grid
-    fields: [explain_forecast_net_cost.total_holiday_effect, explain_forecast_net_cost.total_seasonal_period_daily,
-      explain_forecast_net_cost.total_seasonal_period_monthly, explain_forecast_net_cost.total_seasonal_period_quarterly,
-      explain_forecast_net_cost.total_seasonal_period_weekly, explain_forecast_net_cost.total_seasonal_period_yearly,
-      explain_forecast_net_cost.total_spikes_and_dips, explain_forecast_net_cost.total_step_changes,
-      explain_forecast_net_cost.total_time_series_adjusted_data, explain_forecast_net_cost.total_time_series_data,
-      explain_forecast_net_cost.total_trend]
+    fields: [project_explain_forecast_net_cost.total_holiday_effect, project_explain_forecast_net_cost.total_seasonal_period_daily,
+      project_explain_forecast_net_cost.total_seasonal_period_monthly, project_explain_forecast_net_cost.total_seasonal_period_quarterly,
+      project_explain_forecast_net_cost.total_seasonal_period_weekly, project_explain_forecast_net_cost.total_seasonal_period_yearly,
+      project_explain_forecast_net_cost.total_spikes_and_dips, project_explain_forecast_net_cost.total_step_changes,
+      project_explain_forecast_net_cost.total_time_series_adjusted_data, project_explain_forecast_net_cost.total_time_series_data,
+      project_explain_forecast_net_cost.total_trend]
     filters: {}
     limit: 500
     column_limit: 50
@@ -172,7 +171,7 @@
     truncate_header: false
     minimum_column_width: 75
     series_cell_visualizations:
-      explain_forecast_net_cost.total_holiday_effect:
+      project_explain_forecast_net_cost.total_holiday_effect:
         is_active: false
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -190,7 +189,7 @@
     stacking: ''
     legend_position: center
     point_style: none
-    show_value_labels: false
+    show_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
@@ -202,7 +201,7 @@
     defaults_version: 1
     listen:
       Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
-      Project Name: explain_forecast_net_cost.project_name
+      Project Name: project_explain_forecast_net_cost.project_name
     row: 45
     col: 0
     width: 24
@@ -210,17 +209,17 @@
   - title: Model Evaluation Metrics
     name: Model Evaluation Metrics
     model: cost_anomaly_detection
-    explore: arima_evaluate_net_cost
+    explore: project_arima_evaluate_net_cost
     type: looker_grid
-    fields: [arima_evaluate_net_cost.aic, arima_evaluate_net_cost.log_likelihood,
-      arima_evaluate_net_cost.variance, arima_evaluate_net_cost.non_seasonal_p, arima_evaluate_net_cost.non_seasonal_d,
-      arima_evaluate_net_cost.non_seasonal_q, arima_evaluate_net_cost.has_drift, arima_evaluate_net_cost.has_holiday_effect,
-      arima_evaluate_net_cost.has_spikes_and_dips, arima_evaluate_net_cost.has_step_changes,
-      arima_evaluate_net_cost.intercept_or_drift, arima_evaluate_net_cost.ma_coefficients,
-      arima_evaluate_net_cost.seasonal_periods]
+    fields: [project_arima_evaluate_net_cost.aic, project_arima_evaluate_net_cost.log_likelihood,
+      project_arima_evaluate_net_cost.variance, project_arima_evaluate_net_cost.non_seasonal_p, project_arima_evaluate_net_cost.non_seasonal_d,
+      project_arima_evaluate_net_cost.non_seasonal_q, project_arima_evaluate_net_cost.has_drift, project_arima_evaluate_net_cost.has_holiday_effect,
+      project_arima_evaluate_net_cost.has_spikes_and_dips, project_arima_evaluate_net_cost.has_step_changes,
+      project_arima_evaluate_net_cost.intercept_or_drift, project_arima_evaluate_net_cost.ma_coefficients,
+      project_arima_evaluate_net_cost.seasonal_periods]
     filters:
-      arima_evaluate_net_cost.is_latest_model_version: 'Yes'
-    sorts: [arima_evaluate_net_cost.aic]
+      project_arima_evaluate_net_cost.is_latest_model_version: 'Yes'
+    sorts: [project_arima_evaluate_net_cost.aic]
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -265,9 +264,9 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [arima_evaluate_net_cost.ma_coefficients, arima_evaluate_net_cost.intercept_or_drift]
+    hidden_fields: [project_arima_evaluate_net_cost.ma_coefficients, project_arima_evaluate_net_cost.intercept_or_drift]
     listen:
-      Project Name: arima_evaluate_net_cost.project_name
+      Project Name: project_arima_evaluate_net_cost.project_name
     row: 42
     col: 0
     width: 24
@@ -313,7 +312,7 @@
       gcp_billing_export.usage_start_date]
     pivots: [gcp_billing_export.service__description]
     filters:
-      pricing_mapping.marketplace_purchase: Yes,No
+      # pricing_mapping.marketplace_purchase: Yes,No
       gcp_billing_export.total_cost: ">25"
     sorts: [gcp_billing_export.service__description, gcp_billing_export.total_cost
         desc 0]
@@ -393,30 +392,12 @@
     model: cost_anomaly_detection
     explore: gcp_billing_export
     type: looker_grid
-    fields: [gcp_billing_export.project_department_name, gcp_billing_export.project_contact_name,
-      gcp_billing_export.project_managed_by, gcp_billing_export.contact_name, list_of_environment,
-      list_of_resource_app_id]
+    fields: [gcp_billing_export.project__id, gcp_billing_export.project__name]
     filters:
-      pricing_mapping.marketplace_purchase: Yes,No
+      # pricing_mapping.marketplace_purchase: Yes,No
       gcp_billing_export.total_cost: ">25"
-    sorts: [gcp_billing_export.project_department_name]
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - measure: list_of_resource_app_id
-      based_on: gcp_billing_export.app_id_resource
-      expression: ''
-      label: List of Resource App ID
-      type: list
-      _kind_hint: measure
-      _type_hint: list
-    - measure: list_of_environment
-      based_on: gcp_billing_export.environment
-      expression: ''
-      label: List of Environment
-      type: list
-      _kind_hint: measure
-      _type_hint: list
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -738,12 +719,12 @@
   - title: Cost by Date
     name: Cost by Date
     model: cost_anomaly_detection
-    explore: explain_forecast_net_cost
+    explore: project_explain_forecast_net_cost
     type: looker_line
     fields: [project_detect_anomalies_net_cost.usage_start_date, project_detect_anomalies_net_cost.is_anomaly,
       project_detect_anomalies_net_cost.total_net_cost, project_detect_anomalies_net_cost.anomaly_time_series_data,
       project_detect_anomalies_net_cost.min_lower_bound, project_detect_anomalies_net_cost.max_upper_bound,
-      explain_forecast_net_cost.forecast_period_highlight]
+      project_explain_forecast_net_cost.forecast_period_highlight]
     filters:
       project_detect_anomalies_net_cost.usage_start_week: before today
     sorts: [project_detect_anomalies_net_cost.usage_start_date desc]
@@ -782,23 +763,23 @@
             id: project_detect_anomalies_net_cost.max_upper_bound, name: Upper Bound}], showLabels: true,
         showValues: true, valueFormat: "$#,##0.00", unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: explain_forecast_net_cost.forecast_period_highlight, id: explain_forecast_net_cost.forecast_period_highlight,
+        series: [{axisId: project_explain_forecast_net_cost.forecast_period_highlight, id: project_explain_forecast_net_cost.forecast_period_highlight,
             name: Forecast Period}], showLabels: false, showValues: false, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     series_types:
-      explain_forecast_net_cost.forecast_period_highlight: area
+      project_explain_forecast_net_cost.forecast_period_highlight: area
       project_detect_anomalies_net_cost.anomaly_time_series_data: scatter
     series_colors:
       project_detect_anomalies_net_cost.anomaly_time_series_data: "#ed2514"
       project_detect_anomalies_net_cost.min_lower_bound: "#c0d4e8"
       project_detect_anomalies_net_cost.max_upper_bound: "#c0d4e8"
-      explain_forecast_net_cost.forecast_period_highlight: "#98eddc"
+      project_explain_forecast_net_cost.forecast_period_highlight: "#98eddc"
     series_labels:
       project_detect_anomalies_net_cost.min_lower_bound: Lower Bound
       project_detect_anomalies_net_cost.max_upper_bound: Upper Bound
-      explain_forecast_net_cost.forecast_period_highlight: Forecast Period
+      project_explain_forecast_net_cost.forecast_period_highlight: Forecast Period
     hidden_pivots: {}
     defaults_version: 1
     hidden_fields: [project_detect_anomalies_net_cost.is_anomaly]
@@ -1122,6 +1103,6 @@
       type: dropdown_menu
       display: inline
     model: cost_anomaly_detection
-    explore: explain_forecast_net_cost
+    explore: project_explain_forecast_net_cost
     listens_to_filters: []
     field: project_detect_anomalies_net_cost.set_absolute_percent_threshold

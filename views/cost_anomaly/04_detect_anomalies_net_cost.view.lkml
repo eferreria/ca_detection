@@ -99,7 +99,7 @@ view: project_detect_anomalies_net_cost {
     sql: ${TABLE}.project_name ;;
     link: {
       label: "Anomaly Overview by Project"
-      url: "https://bcodev.cloud.looker.com/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
+      url: "https://b310db03-9970-4ee0-9947-80e8ddcb590a.looker.app/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
     }
   }
 
@@ -109,7 +109,7 @@ view: project_detect_anomalies_net_cost {
     sql: ${TABLE}.project_id ;;
     link: {
       label: "Anomaly Overview by Project"
-      url: "https://bcodev.cloud.looker.com/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
+      url: "https://b310db03-9970-4ee0-9947-80e8ddcb590a.looker.app/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
     }
   }
 
@@ -121,16 +121,16 @@ view: project_detect_anomalies_net_cost {
     html: <a href="https://console.cloud.google.com/home/dashboard?project={{ project_id._value }}" target="_blank"><b><h4> Click to view project "{{ project_id._value }}" in Console </b></h4></a>;;
   }
 
-  # dimension: link_to_anomaly_deep_dive {
-  #   # link to anomaly deep dive dashboard, to be used from anomaly details by project
-  #   hidden: yes
-  #   sql: "link" ;;
-  #   # Usage date filtered on last 5 days leading up to the anomaly usage date and a 3 days after
-  #   html:  <a href="{% assign filter_date = project_detect_anomalies_net_cost.usage_start_date._rendered_value %}{% assign filter_date_minus = filter_date | date: '%s' | minus: 432000 | date: '%Y-%m-%d' | uri_encode %}{% assign filter_date_plus = filter_date | date: '%s' | plus: 259200 | date: '%Y-%m-%d' | uri_encode %}/dashboards/@{PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ filter_date_minus }}+to+{{ filter_date_plus }}&Anomaly+Probability+Threshold={{_filters['set_anomaly_prob_threshold'] | url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}" target="_blank" >
-  #         <img border="0" alt="altText" src="https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
-  #           height="14" width="14">
-  #         </a> ;;
-  # }
+  dimension: link_to_anomaly_deep_dive {
+    # link to anomaly deep dive dashboard, to be used from anomaly details by project
+    hidden: yes
+    sql: "link" ;;
+    # Usage date filtered on last 5 days leading up to the anomaly usage date and a 3 days after
+    html:  <a href="{% assign filter_date = project_detect_anomalies_net_cost.usage_start_date._rendered_value %}{% assign filter_date_minus = filter_date | date: '%s' | minus: 432000 | date: '%Y-%m-%d' | uri_encode %}{% assign filter_date_plus = filter_date | date: '%s' | plus: 259200 | date: '%Y-%m-%d' | uri_encode %}/dashboards/@{PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ filter_date_minus }}+to+{{ filter_date_plus }}&Anomaly+Probability+Threshold={{_filters['set_anomaly_prob_threshold'] | url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}" target="_blank" >
+          <img border="0" alt="altText" src="https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
+            height="14" width="14">
+          </a> ;;
+  }
 
   #} project dimensions
 

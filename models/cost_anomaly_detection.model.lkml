@@ -3,7 +3,7 @@ connection: "bigquery_connection"
 include: "/views/**/*.view.lkml"
 include: "/config/datagroups.lkml"
 include: "/explores/gcp_billing.explore"
-include: "/dashboards/overview_of_anomalies.dashboard"
+include: "/dashboards/*.dashboard"
 
 label: "Anomaly Detection"
 

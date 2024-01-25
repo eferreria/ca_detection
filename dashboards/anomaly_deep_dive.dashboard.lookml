@@ -152,14 +152,14 @@
   - title: Explainable AI Metrics (hover for details)
     name: Explainable AI Metrics (hover for details)
     model: cost_anomaly_detection
-    explore: explain_forecast_net_cost
+    explore: project_explain_forecast_net_cost
     type: looker_grid
-    fields: [explain_forecast_net_cost.total_holiday_effect, explain_forecast_net_cost.total_seasonal_period_daily,
-      explain_forecast_net_cost.total_seasonal_period_monthly, explain_forecast_net_cost.total_seasonal_period_quarterly,
-      explain_forecast_net_cost.total_seasonal_period_weekly, explain_forecast_net_cost.total_seasonal_period_yearly,
-      explain_forecast_net_cost.total_spikes_and_dips, explain_forecast_net_cost.total_step_changes,
-      explain_forecast_net_cost.total_time_series_adjusted_data, explain_forecast_net_cost.total_time_series_data,
-      explain_forecast_net_cost.total_trend]
+    fields: [project_explain_forecast_net_cost.total_holiday_effect, project_explain_forecast_net_cost.total_seasonal_period_daily,
+      project_explain_forecast_net_cost.total_seasonal_period_monthly, project_explain_forecast_net_cost.total_seasonal_period_quarterly,
+      project_explain_forecast_net_cost.total_seasonal_period_weekly, project_explain_forecast_net_cost.total_seasonal_period_yearly,
+      project_explain_forecast_net_cost.total_spikes_and_dips, project_explain_forecast_net_cost.total_step_changes,
+      project_explain_forecast_net_cost.total_time_series_adjusted_data, project_explain_forecast_net_cost.total_time_series_data,
+      project_explain_forecast_net_cost.total_trend]
     filters: {}
     limit: 500
     column_limit: 50
@@ -185,7 +185,7 @@
     truncate_header: false
     minimum_column_width: 75
     series_cell_visualizations:
-      explain_forecast_net_cost.total_holiday_effect:
+      project_explain_forecast_net_cost.total_holiday_effect:
         is_active: false
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -214,7 +214,7 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Project Name: explain_forecast_net_cost.project_name
+      Project Name: project_explain_forecast_net_cost.project_name
     row: 36
     col: 0
     width: 24
@@ -222,17 +222,17 @@
   - title: Model Evaluation Metrics
     name: Model Evaluation Metrics
     model: cost_anomaly_detection
-    explore: arima_evaluate_net_cost
+    explore: project_arima_evaluate_net_cost
     type: looker_grid
-    fields: [arima_evaluate_net_cost.aic, arima_evaluate_net_cost.log_likelihood,
-      arima_evaluate_net_cost.variance, arima_evaluate_net_cost.non_seasonal_p, arima_evaluate_net_cost.non_seasonal_d,
-      arima_evaluate_net_cost.non_seasonal_q, arima_evaluate_net_cost.has_drift, arima_evaluate_net_cost.has_holiday_effect,
-      arima_evaluate_net_cost.has_spikes_and_dips, arima_evaluate_net_cost.has_step_changes,
-      arima_evaluate_net_cost.intercept_or_drift, arima_evaluate_net_cost.ma_coefficients,
-      arima_evaluate_net_cost.seasonal_periods]
+    fields: [project_arima_evaluate_net_cost.aic, project_arima_evaluate_net_cost.log_likelihood,
+      project_arima_evaluate_net_cost.variance, project_arima_evaluate_net_cost.non_seasonal_p, project_arima_evaluate_net_cost.non_seasonal_d,
+      project_arima_evaluate_net_cost.non_seasonal_q, project_arima_evaluate_net_cost.has_drift, project_arima_evaluate_net_cost.has_holiday_effect,
+      project_arima_evaluate_net_cost.has_spikes_and_dips, project_arima_evaluate_net_cost.has_step_changes,
+      project_arima_evaluate_net_cost.intercept_or_drift, project_arima_evaluate_net_cost.ma_coefficients,
+      project_arima_evaluate_net_cost.seasonal_periods]
     filters:
-      arima_evaluate_net_cost.is_latest_model_version: 'Yes'
-    sorts: [arima_evaluate_net_cost.aic]
+      project_arima_evaluate_net_cost.is_latest_model_version: 'Yes'
+    sorts: [project_arima_evaluate_net_cost.aic]
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -277,9 +277,9 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [arima_evaluate_net_cost.ma_coefficients, arima_evaluate_net_cost.intercept_or_drift]
+    hidden_fields: [project_arima_evaluate_net_cost.ma_coefficients, project_arima_evaluate_net_cost.intercept_or_drift]
     listen:
-      Project Name: arima_evaluate_net_cost.project_name
+      Project Name: project_arima_evaluate_net_cost.project_name
     row: 33
     col: 0
     width: 24
