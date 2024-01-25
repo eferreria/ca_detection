@@ -305,7 +305,7 @@
     height: 8
   - title: Cost by Service by Date
     name: Cost by Service by Date
-    model: cost_anomaly_detection
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.total_cost, gcp_billing_export.service__description,
@@ -389,7 +389,7 @@
     height: 14
   - title: GCP Project Details
     name: GCP Project Details
-    model: cost_anomaly_detection
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.project__id, gcp_billing_export.project__name]
