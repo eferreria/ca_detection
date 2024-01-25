@@ -201,7 +201,7 @@
     defaults_version: 1
     listen:
       Percent Difference from Threshold: project_detect_anomalies_net_cost.set_absolute_percent_threshold
-      Project Name: project_explain_forecast_net_cost.project_name
+      Project Name: project_explain_forecast_net_cost.project_id
     row: 45
     col: 0
     width: 24
@@ -266,7 +266,7 @@
     defaults_version: 1
     hidden_fields: [project_arima_evaluate_net_cost.ma_coefficients, project_arima_evaluate_net_cost.intercept_or_drift]
     listen:
-      Project Name: project_arima_evaluate_net_cost.project_name
+      Project Name: project_arima_evaluate_net_cost.project_id
     row: 42
     col: 0
     width: 24

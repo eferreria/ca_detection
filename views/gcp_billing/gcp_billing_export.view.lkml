@@ -13,10 +13,6 @@ view: gcp_billing_export {
         *
       , generate_uuid() as pk
       , DATE(usage_start_time) as usage_start_date
-      -- , _PARTITIONDATE as partition_date
-      -- , (SELECT string_agg(value) FROM UNNEST(project.labels) WHERE KEY='appid') as app_id
-      -- , (SELECT value FROM UNNEST(project.labels) WHERE KEY='skillteam') as skillteam
-      -- , (SELECT value FROM UNNEST(project.labels) WHERE KEY='environment') as env
 
       FROM `@{BILLING_TABLE}`
       WHERE {% incrementcondition %} partition_date {% endincrementcondition %} ;;
@@ -28,17 +24,8 @@ view: gcp_billing_export {
     label: "App ID"
   }
 
-  dimension_group: partition {
-    type: time
-    timeframes: [
-      raw
-      , time
-      , date
-      , month
-      , year
-    ]
-    # hidden: yes
-    # datatype: timestamp
+  dimension: partition_date {
+    type: date
     sql: ${TABLE}.partition_date ;;
   }
 

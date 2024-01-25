@@ -27,10 +27,10 @@ view: project_arima_evaluate_net_cost {
     sql: ${TABLE}.project_id ;;
   }
 
-  dimension: project_name {
-    sql: ${TABLE}.project_name;;
-    type: string
-  }
+  # dimension: project_name {
+  #   sql: ${TABLE}.project_name;;
+  #   type: string
+  # }
 
   dimension: pk {
     primary_key: yes

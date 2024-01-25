@@ -214,7 +214,7 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Project Name: project_explain_forecast_net_cost.project_name
+      Project Name: project_explain_forecast_net_cost.project_id
     row: 36
     col: 0
     width: 24
@@ -279,7 +279,7 @@
     defaults_version: 1
     hidden_fields: [project_arima_evaluate_net_cost.ma_coefficients, project_arima_evaluate_net_cost.intercept_or_drift]
     listen:
-      Project Name: project_arima_evaluate_net_cost.project_name
+      Project Name: project_arima_evaluate_net_cost.project_id
     row: 33
     col: 0
     width: 24
@@ -321,30 +321,13 @@
     model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
-    fields: [gcp_billing_export.project_department_name, gcp_billing_export.project_contact_name,
-      gcp_billing_export.project_managed_by, gcp_billing_export.contact_name, list_of_environment,
-      list_of_resource_app_id]
+    fields: [gcp_billing_export.project__name]
     filters:
       pricing_mapping.marketplace_purchase: Yes,No
       gcp_billing_export.total_cost: ">25"
-    sorts: [gcp_billing_export.project_department_name]
+    sorts: [gcp_billing_export.project__name]
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - measure: list_of_resource_app_id
-      based_on: gcp_billing_export.app_id_resource
-      expression: ''
-      label: List of Resource App ID
-      type: list
-      _kind_hint: measure
-      _type_hint: list
-    - measure: list_of_environment
-      based_on: gcp_billing_export.environment
-      expression: ''
-      label: List of Environment
-      type: list
-      _kind_hint: measure
-      _type_hint: list
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -365,9 +348,6 @@
     show_row_totals: true
     truncate_header: false
     minimum_column_width: 75
-    series_labels:
-      list_of_environment: Environments
-      list_of_resource_app_id: Resource App IDs
     x_axis_gridlines: false
     y_axis_gridlines: true
     y_axes: []
