@@ -66,3 +66,12 @@ application: kitchensink {
     global_user_attributes: ["locale"]
   }
 }
+
+application: helloworld-ts {
+  label: "Helloworld (TypeScript)"
+  # url: "https://localhost:8080/bundle.js"
+  file: "hello_world.js"
+  entitlements: {
+    core_api_methods: ["me"]
+  }
+}
