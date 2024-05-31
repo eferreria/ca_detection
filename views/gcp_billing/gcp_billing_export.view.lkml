@@ -7,15 +7,15 @@ view: gcp_billing_export {
     datagroup_trigger: monthly_on_day_2
 
 
-    increment_key: "partition_date"
-    increment_offset: 1
+    # increment_key: "partition_date"
+    # increment_offset: 1
     sql: SELECT
         *
       , generate_uuid() as pk
       , DATE(usage_start_time) as usage_start_date
 
       FROM `@{BILLING_TABLE}`
-      WHERE {% incrementcondition %} partition_date {% endincrementcondition %} ;;
+      -- WHERE {% incrementcondition %} partition_date {% endincrementcondition %} ;;
   }
 
   dimension: app_id {
