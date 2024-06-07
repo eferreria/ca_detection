@@ -80,6 +80,7 @@ view: gcp_billing_export {
 
   dimension: cloud {
     type: string
+    suggestions: ["GCP", "Somthing Else", "GCPe"]
     sql: 'GCPe' ;;
     link: {
       label: "{{ value }} Cost Management"
