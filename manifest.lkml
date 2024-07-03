@@ -35,7 +35,27 @@ constant: PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD {
 application: explore_assistant {
   label: "Explore Assistant"
   # url: "https://localhost:8080/bundle.js"
-  file: "explore_assistant_multi_explores.js"
+  # file: "explore_assistant_multi_explores.js"
+
+  file: "explore_assistant.js"
+  entitlements: {
+    core_api_methods: ["lookml_model_explore","create_sql_query","run_sql_query","run_query","create_query"]
+    navigation: yes
+    use_embeds: yes
+    use_iframes: yes
+    new_window: yes
+    new_window_external_urls: ["https://developers.generativeai.google/*"]
+    local_storage: yes
+    # external_api_urls: ["cloud function url"]
+  }
+}
+
+application: fhir_with_explore_assistant {
+  label: "FHIR with Explore Assistant"
+  # url: "https://localhost:8080/bundle.js"
+  # file: "explore_assistant_multi_explores.js"
+
+  file: "fhir_flattened.js"
   entitlements: {
     core_api_methods: ["lookml_model_explore","create_sql_query","run_sql_query","run_query","create_query"]
     navigation: yes
@@ -73,5 +93,36 @@ application: helloworld-ts {
   file: "hello_world.js"
   entitlements: {
     core_api_methods: ["me"]
+  }
+}
+
+application: dashboard-summarization {
+  label: "Dashboard Insights Powered by Vertex AI"
+  file: "dashboard_summarization.js"
+  # url: "http://localhost:8080/bundle.js"
+  mount_points: {
+    dashboard_vis: yes
+    dashboard_tile: yes
+    standalone: yes
+  }
+  entitlements: {
+    local_storage: yes
+    use_form_submit: yes
+    core_api_methods: ["run_inline_query","all_lookml_models","dashboard","dashboard_dashboard_elements"]
+    external_api_urls: [
+      "https://eaf-dashboard-summarization-b32qynntlq-uc.a.run.app","http://localhost:5000","http://localhost:3000","https://*.googleapis.com","https://slack.com/api/*","https://slack.com/*"
+    ]
+    oauth2_urls: [
+      "https://accounts.google.com/o/oauth2/v2/auth",
+      "https://www.googleapis.com/auth/chat.spaces",
+      "https://www.googleapis.com/auth/drive.metadata.readonly",
+      "https://www.googleapis.com/auth/spreadsheets.readonly",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/chat.spaces.readonly",
+      "https://www.googleapis.com/auth/chat.bot",
+      "https://www.googleapis.com/auth/chat.messages",
+      "https://www.googleapis.com/auth/chat.messages.create",
+      "https://slack.com/oauth/v2/authorize"
+    ]
   }
 }
