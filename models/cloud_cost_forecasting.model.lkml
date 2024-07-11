@@ -25,17 +25,17 @@ explore: bqml_model_info {
 #(
 explore: project_input_data_net_cost {
   label: "Project Input Data (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_create_model_net_cost {
   label: "Project Create Model (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_arima_evaluate_net_cost {
   label: "Project ARIMA Evaluate (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_explain_forecast_net_cost {
@@ -47,4 +47,17 @@ explore: project_explain_forecast_net_cost {
     sql_on: ${project_explain_forecast_net_cost.project_id} = ${project_detect_anomalies_net_cost.project_id}
       AND ${project_explain_forecast_net_cost.time_series_date} = ${project_detect_anomalies_net_cost.usage_start_date};;
   }
+}
+
+view: +project_explain_forecast_net_cost{
+  dimension: project_name { hidden:yes }
+}
+view: +project_detect_anomalies_net_cost {
+  dimension: project_name {
+    label: "Application Name"
+    # sql:
+    # REPLACE(
+    # ;;
+    # }
+    }
 }
