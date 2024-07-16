@@ -1,14 +1,34 @@
+
 view: project_explain_forecast_net_cost {
   label: "Explain Forecast"
+  derived_table: {
+    sql:
+      SELECT arima_forecast.*, driver_forecast.budget_start_month
+      , driver_forecast.additional_projected_spend
+      , driver_forecast.yearly_budget
+      FROM
+       ML.EXPLAIN_FORECAST(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`,
+    STRUCT(@{FORECAST_HORIZON} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) AS arima_forecast
+    LEFT JOIN
+    `eaf-barong-da-qa.billing.driver_based_forecast` as driver_forecast
+    ON arima_forecast.project_id = driver_forecast.projectid
+      AND DATE(arima_forecast.time_series_timestamp) = driver_forecast.budget_start_month
 
-  sql_table_name:  ML.EXPLAIN_FORECAST(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`,
-    STRUCT(@{FORECAST_HORIZON} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) ;;
+    ;;
+  }
+  # sql_table_name:  ML.EXPLAIN_FORECAST(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`,
+  #   STRUCT(@{FORECAST_HORIZON} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) ;;
 
   parameter: set_confidence_level {
     label: "Confidence Level (optional)"
     description: "The percentage of the future values that fall in the prediction interval. The default value is 0.99. The valid input range is [0,1)."
     type: number
     default_value: "0.99"
+  }
+
+  dimension: additional_projected_spend {
+    type: number
+    sql: ${TABLE}.additional_projected_spend ;;
   }
 
   dimension: pk {
@@ -168,6 +188,20 @@ view: project_explain_forecast_net_cost {
     type: sum
     description: "The long-term increase or decrease in the time series data."
     sql: ${trend} ;;
+    value_format_name: usd
+  }
+
+  measure: total_additional_projected_spend {
+    type: sum
+    description: "The long-term increase or decrease in the time series data."
+    sql: ${additional_projected_spend} ;;
+    value_format_name: usd
+  }
+
+  measure: total_forecast {
+    type: sum
+    description: "The long-term increase or decrease in the time series data."
+    sql: ${trend} + ${additional_projected_spend};;
     value_format_name: usd
   }
 
