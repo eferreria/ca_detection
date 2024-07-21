@@ -129,7 +129,7 @@ application: dashboard-summarization {
     use_form_submit: yes
     core_api_methods: ["run_inline_query","all_lookml_models","dashboard","dashboard_dashboard_elements"]
     external_api_urls: [
-      "https://eaf-dashboard-summarization-b32qynntlq-uc.a.run.app", "http://localhost:5000","http://localhost:3000","https://*.googleapis.com","https://slack.com/api/*","https://slack.com/*"
+      "https://websocker-dbsummarization-b32qynntlq-uc.a.run.app", "http://localhost:5000","http://localhost:3000","https://*.googleapis.com","https://slack.com/api/*","https://slack.com/*"
     ]
     #
     oauth2_urls: [
