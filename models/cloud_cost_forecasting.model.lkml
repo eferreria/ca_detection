@@ -4,6 +4,7 @@ include: "/views/**/*.view.lkml"
 include: "/config/datagroups.lkml"
 # include: "/explores/gcp_billing.explore"
 include: "/dashboards/*.dashboard"
+include: "/views/cost_forecasting/+03_explain_forecast_net_cost.view.lkml"
 
 #### BQML Model Information Explore ####
 #(
