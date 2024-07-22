@@ -14,9 +14,7 @@ measure: total_trend {
   label: "Total Actuals"
 }
 
-measure: total_forecast {
-  label: "Total Budget Forecast"
-}
+
 }
 
 # measure: total_additional_projected_spend { ## new
