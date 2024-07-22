@@ -66,6 +66,11 @@ application: cloud_cost_forecasting {
     local_storage: yes
     # external_api_urls: ["cloud function url"]
   }
+  mount_points: {
+    dashboard_vis: yes
+    dashboard_tile: yes
+    standalone: yes
+  }
 }
 
 
