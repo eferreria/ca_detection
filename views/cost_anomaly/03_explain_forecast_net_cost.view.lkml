@@ -26,7 +26,7 @@ view: project_explain_forecast_net_cost {
     default_value: "0.99"
   }
 
-  dimension: additional_projected_spend {
+  dimension: additional_projected_spend { ##new
     type: number
     sql: ${TABLE}.additional_projected_spend ;;
   }
@@ -191,7 +191,7 @@ view: project_explain_forecast_net_cost {
     value_format_name: usd
   }
 
-  measure: total_additional_projected_spend {
+  measure: total_additional_projected_spend { ## new
     type: sum
     description: "The long-term increase or decrease in the time series data."
     sql: ${additional_projected_spend} ;;
