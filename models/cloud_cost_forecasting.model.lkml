@@ -4,7 +4,6 @@ include: "/views/**/*.view.lkml"
 include: "/config/datagroups.lkml"
 # include: "/explores/gcp_billing.explore"
 include: "/dashboards/*.dashboard"
-include: "/views/cost_forecasting/+03_explain_forecast_net_cost.view.lkml"
 
 #### BQML Model Information Explore ####
 #(
@@ -40,7 +39,7 @@ explore: project_arima_evaluate_net_cost {
 }
 
 explore: project_explain_forecast_net_cost {
-  label: "Project Explain Forecast (GCP Project)"
+  label: "Project Spend Forecast"
   hidden: no
   join: project_detect_anomalies_net_cost {
     relationship: one_to_one
@@ -56,9 +55,5 @@ view: +project_explain_forecast_net_cost{
 view: +project_detect_anomalies_net_cost {
   dimension: project_name {
     label: "Application Name"
-    # sql:
-    # REPLACE(
-    # ;;
-    # }
-    }
+  }
 }

@@ -1,6 +1,7 @@
 include: "/views/cost_anomaly/03_explain_forecast_net_cost.view.lkml"
 
 view: +project_explain_forecast_net_cost {
+  label: "Explain Forecast"
 
   measure: yearly_budget {
     label: "Total Budget"
