@@ -19,7 +19,7 @@ measure: total_trend {
     description: "The long-term increase or decrease in the time series data."
     sql: case when ${time_series_month} >= EXTRACT(MONTH FROM CURRENT_DATE())
     then ${total_forecast} else ${project_detect_anomalies_net_cost.total_net_cost}
-    else 0 end ;;
+    end ;;
     value_format_name: usd
   }
 
