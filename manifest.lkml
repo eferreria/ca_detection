@@ -122,7 +122,7 @@ application: helloworld-ts {
 
 application: dashboard-summarization {
   label: "Dashboard Insights Powered by Vertex AI"
-  file: "dashboard_summarization.js"
+  file: "dashboard_summarization_bkup.js"
   # url: "http://localhost:8080/bundle.js"
   mount_points: {
     dashboard_vis: yes
