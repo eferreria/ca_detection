@@ -11,9 +11,31 @@ view: +project_explain_forecast_net_cost {
 
 
 measure: total_trend {
-  label: "Total Actuals"
+  label: "Total Spend"
 }
+  ##new
+  measure: actual_forecast {
+    type: number
+    description: "The long-term increase or decrease in the time series data."
+    sql: case when ${time_series_month} >= EXTRACT(MONTH FROM CURRENT_DATE())
+    then ${total_forecast} else ${project_detect_anomalies_net_cost.total_net_cost}
+    else 0 end ;;
+    value_format_name: usd
+  }
 
+   measure: variance_amount {
+     type: number
+    sql: ${project_detect_anomalies_net_cost.total_net_cost} - ${actual_forecast} ;;
+    value_format_name: usd
+   }
+
+  measure: variance_percentage {
+    type: number
+    sql: (${project_detect_anomalies_net_cost.total_net_cost} - ${actual_forecast})/${project_detect_anomalies_net_cost.total_net_cost}   ;;
+    value_format_name: percent_1
+  }
+
+  # measure: varianct_percentage {}
 
 }
 

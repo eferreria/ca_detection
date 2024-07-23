@@ -199,9 +199,9 @@ view: project_explain_forecast_net_cost {
   }
 
   measure: total_forecast {
-    type: sum
+    type: number
     description: "The long-term increase or decrease in the time series data."
-    sql: ${trend} + ${additional_projected_spend};;
+    sql: ${total_trend} + ${total_additional_projected_spend};;
     value_format_name: usd
   }
 
