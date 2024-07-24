@@ -30,7 +30,6 @@ view: project_create_model_net_cost {
                 ,  HORIZON = @{FORECAST_HORIZON}
                 ,  HOLIDAY_REGION =  'GLOBAL' -- Acceptable values are 'GLOBAL' or ['US', 'GB']. If enabled, update Step 4
                 ,  AUTO_ARIMA = TRUE
-                ,  FORECAST_LIMIT_LOWER_BOUND = 0
           )
         AS (SELECT * FROM `@{GCP_PROJECT}.@{BQML_DATASET}.TRAINING_DATA_{{ mdl_name }}`)
         ;;
