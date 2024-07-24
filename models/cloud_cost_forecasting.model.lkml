@@ -52,14 +52,19 @@ explore: project_explain_forecast_net_cost {
 view: +project_explain_forecast_net_cost{
   dimension: project_name { hidden:yes }
 
-  # dimension: project_id {
-  #   sql: ${TABLE}.project_id ;;
-  # }
+  dimension: project_id {
+    sql: REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(${TABLE}.project_id, 'spotify', ''),'equinix',''),'bellcan',''), 'ford','oxford'), 'lg-air', 'earth')
+    , 'broad', ''), 'capgem', 'houd'), 'deutsche','');;
+  }
 }
 
 
 view: +project_detect_anomalies_net_cost {
   dimension: project_name {
     label: "Application Name"
+  }
+  dimension: project_id {
+    sql:   REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(${TABLE}.project_id, 'spotify', ''),'equinix',''),'bellcan',''), 'ford','oxford'), 'lg-air', 'earth')
+    , 'broad', ''), 'capgem', 'houd'), 'deutsche','');;
   }
 }
