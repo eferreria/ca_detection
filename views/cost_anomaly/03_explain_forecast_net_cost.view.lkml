@@ -100,7 +100,7 @@ view: project_explain_forecast_net_cost {
   dimension: trend {
     hidden: yes
     type: number
-    sql: ${TABLE}.trend ;;
+    sql: CASE WHEN ${TABLE}.trend < 0 then 0 else ${TABLE}.trend end;;
   }
 
   dimension: seasonal_period_yearly {
@@ -200,7 +200,7 @@ view: project_explain_forecast_net_cost {
   }
 
   measure: total_forecast {
-    tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend"]
+    tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend", "Forecasting Spend", "Total Forecasting Spend"]
     type: number
     description: "The long-term increase or decrease in the time series data."
     sql: ${total_trend} + ${total_additional_projected_spend};;
