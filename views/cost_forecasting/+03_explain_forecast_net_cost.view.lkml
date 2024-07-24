@@ -15,23 +15,23 @@ measure: total_trend {
 }
   ##new
   measure: actual_forecast {
-    type: number
+    type: sum
     description: "The long-term increase or decrease in the time series data."
     sql: case when FORMAT_DATE('%m-%Y',${time_series_raw}) <= FORMAT_DATE('%m-%Y', CURRENT_DATE())
-    then  ${total_forecast} else ${project_detect_anomalies_net_cost.total_net_cost}
+    then  (${trend}+${additional_projected_spend}) else ${project_detect_anomalies_net_cost.total_cost}
     end ;;
     value_format_name: usd
   }
 
    measure: variance_amount {
      type: number
-    sql: ${project_detect_anomalies_net_cost.total_net_cost} - ${actual_forecast} ;;
+    sql: ${project_detect_anomalies_net_cost.total_net_cost} - ${total_forecast} ;;
     value_format_name: usd
    }
 
   measure: variance_percentage {
     type: number
-    sql: (${project_detect_anomalies_net_cost.total_net_cost} - ${actual_forecast})/${project_detect_anomalies_net_cost.total_net_cost}   ;;
+    sql: (${project_detect_anomalies_net_cost.total_net_cost} - ${total_forecast})/${project_detect_anomalies_net_cost.total_net_cost}   ;;
     value_format_name: percent_1
   }
 
