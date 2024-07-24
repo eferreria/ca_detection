@@ -192,6 +192,7 @@ view: project_explain_forecast_net_cost {
   }
 
   measure: total_additional_projected_spend { ## new
+    tags: ["Total Additional Spend"]
     type: sum
     description: "The long-term increase or decrease in the time series data."
     sql: ${additional_projected_spend} ;;
@@ -199,6 +200,7 @@ view: project_explain_forecast_net_cost {
   }
 
   measure: total_forecast {
+    tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend"]
     type: number
     description: "The long-term increase or decrease in the time series data."
     sql: ${total_trend} + ${total_additional_projected_spend};;
