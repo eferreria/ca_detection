@@ -51,7 +51,13 @@ explore: project_explain_forecast_net_cost {
 
 view: +project_explain_forecast_net_cost{
   dimension: project_name { hidden:yes }
+
+  # dimension: project_id {
+  #   sql: ${TABLE}.project_id ;;
+  # }
 }
+
+
 view: +project_detect_anomalies_net_cost {
   dimension: project_name {
     label: "Application Name"
