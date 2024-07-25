@@ -1,7 +1,7 @@
 include: "/views/cost_anomaly/04_detect_anomalies_net_cost.view"
 
 view: +project_detect_anomalies_net_cost {
-  label: "Cloud Spend + Anomaly Detection"
+  label: "AI Forecasting"
 
   measure: total_actual_vs_forecasted {
     type: number
