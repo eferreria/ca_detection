@@ -52,7 +52,7 @@ measure: total_trend {
 
   measure: cumulative_variance_amount{
     type: number
-    sql: (${cumulative_forecast}-${yearly_budget})/${yearly_budget}  ;;
+    sql: (${cumulative_forecast}-${yearly_budget})  ;;
     value_format_name: usd
   }
 
