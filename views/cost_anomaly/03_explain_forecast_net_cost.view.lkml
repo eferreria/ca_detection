@@ -49,6 +49,7 @@ view: project_explain_forecast_net_cost {
   }
 
   dimension_group: time_series {
+    tags: ["Forecast Date", "Time Series Date", "Budget Date", "Plan Date"]
     type: time
     timeframes: [raw, date, week, month, year]
     sql: ${TABLE}.time_series_timestamp ;;
