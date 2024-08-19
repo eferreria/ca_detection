@@ -15,7 +15,8 @@ view: gcp_billing_export {
       , DATE(usage_start_time) as usage_start_date
 
       FROM `@{BILLING_TABLE}`
-      -- WHERE {% incrementcondition %} partition_date {% endincrementcondition %} ;;
+      -- WHERE {% incrementcondition %} partition_date {% endincrementcondition %}
+      ;;
   }
 
   dimension: app_id {
