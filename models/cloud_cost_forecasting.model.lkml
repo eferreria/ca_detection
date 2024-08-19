@@ -56,6 +56,17 @@ view: +project_explain_forecast_net_cost{
     sql: REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(${TABLE}.project_id, 'spotify', ''),'equinix',''),'bellcan',''), 'ford','oxford'), 'lg-air', 'earth')
     , 'broad', ''), 'capgem', 'houd'), 'deutsche','');;
   }
+
+  dimension: really_long_text {
+    sql: 'This is a really long text that *** I am using so I can test wrapping' ;;
+    html:
+    {% assign message = value | split: "***" %}
+
+    {% for member in message %}
+      {{ member }} <br>
+    {% endfor %}
+    ;;
+  }
 }
 
 
