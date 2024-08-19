@@ -327,9 +327,10 @@ view: project_detect_anomalies_net_cost {
 
   measure: total_net_cost {
     description: "Total Net Cost"
+    tags: ["Total Actuals", "Actuals", "Actual Spend", "Net Cost", "Total Cost", "Cost"]
     type: sum
     sql: ${total_cost} ;;
-    value_format_name: decimal_2
+    value_format_name: usd_0
   }
 
   measure: avg_time_series_data {

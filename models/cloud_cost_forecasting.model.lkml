@@ -1,13 +1,9 @@
 connection: "bigquery_connection"
 
-include: "/views/cost_anomaly/*.view.lkml"
-include: "/views/gcp_billing/*.view.lkml"
-include: "/views/*.view.lkml"
+include: "/views/**/*.view.lkml"
 include: "/config/datagroups.lkml"
 # include: "/explores/gcp_billing.explore"
 include: "/dashboards/*.dashboard"
-
-label: "Anomaly Detection"
 
 #### BQML Model Information Explore ####
 #(
@@ -29,21 +25,21 @@ explore: bqml_model_info {
 #(
 explore: project_input_data_net_cost {
   label: "Project Input Data (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_create_model_net_cost {
   label: "Project Create Model (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_arima_evaluate_net_cost {
   label: "Project ARIMA Evaluate (GCP Project)"
-  hidden: no
+  hidden: yes
 }
 
 explore: project_explain_forecast_net_cost {
-  label: "Project Explain Forecast (GCP Project)"
+  label: "Project Spend Forecast"
   hidden: no
   join: project_detect_anomalies_net_cost {
     relationship: one_to_one
@@ -53,11 +49,33 @@ explore: project_explain_forecast_net_cost {
   }
 }
 
-explore: project_detect_anomalies_net_cost {
-  label: "Project Detect Anomalies (GCP Project)"
-  hidden: no
-  # Add this filter so that underrun anomalies for the current day aren't flagged.
-  # sql_always_where: ${is_underrun_anomaly_today} ;;]
+view: +project_explain_forecast_net_cost{
+  dimension: project_name { hidden:yes }
 
+  dimension: project_id {
+    sql: REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(${TABLE}.project_id, 'spotify', ''),'equinix',''),'bellcan',''), 'ford','oxford'), 'lg-air', 'earth')
+    , 'broad', ''), 'capgem', 'houd'), 'deutsche','');;
+  }
+
+  dimension: really_long_text {
+    sql: 'This is a really long text that *** I am using so I can test wrapping' ;;
+    html:
+    {% assign message = value | split: "***" %}
+
+    {% for member in message %}
+      {{ member }} <br>
+    {% endfor %}
+    ;;
+  }
 }
-#)
+
+
+view: +project_detect_anomalies_net_cost {
+  dimension: project_name {
+    label: "Application Name"
+  }
+  dimension: project_id {
+    sql:   REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(${TABLE}.project_id, 'spotify', ''),'equinix',''),'bellcan',''), 'ford','oxford'), 'lg-air', 'earth')
+    , 'broad', ''), 'capgem', 'houd'), 'deutsche','');;
+  }
+}

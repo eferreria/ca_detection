@@ -6,8 +6,8 @@ view: project_daily_spend {
   derived_table: {
     datagroup_trigger: near_real_time
     partition_keys: ["usage_start_date"]
-    increment_key: "partition_date"
-    increment_offset: 0
+    # increment_key: "partition_date"
+    # increment_offset: 0
     sql:
     SELECT
               gcp_billing_export.project.id AS project_id,
@@ -25,8 +25,8 @@ view: project_daily_spend {
         -- Use last 57 weeks (~13 months) of billing data to train model
         -- AND DATE(gcp_billing_export.usage_start_time) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
         AND
-        --DATE(gcp_billing_export.partition_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
-         {% incrementcondition %} partition_date {% endincrementcondition %}
+        DATE(gcp_billing_export.partition_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+        -- {% incrementcondition %} partition_date {% endincrementcondition %}
         GROUP BY
         1,
         2,
@@ -47,17 +47,8 @@ view: project_daily_spend {
 
   dimension: project_id {}
   dimension: project_name {}
-  dimension_group: partition {
-    type: time
-    timeframes: [
-      raw
-      , time
-      , date
-      , month
-      , year
-    ]
-    # hidden: yes
-    # datatype: timestamp
+  dimension: partition_date {
+    type: date_time
     sql: ${TABLE}.partition_date ;;
   }
   dimension: usage_start_date {
@@ -165,12 +156,12 @@ view: project_input_data_net_cost {
 
   dimension_group: usage {
     type: time
-    hidden: yes
-    timeframes: [date,raw]
+    hidden: no
+    timeframes: [date,raw, month, week, year]
     datatype: date
     sql: ${TABLE}.usage_start_date ;;
     convert_tz: no
-    html: {{ usage_raw._rendered_value }} ;;
+    # html: {{ usage_raw._rendered_value }} ;;
   }
 
   dimension: project_name {
