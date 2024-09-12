@@ -3,6 +3,22 @@ include: "/views/cost_anomaly/03_explain_forecast_net_cost.view.lkml"
 view: +project_explain_forecast_net_cost {
   label: "Explain Forecast"
 
+  derived_table: {
+    sql:
+      SELECT arima_forecast.*, driver_forecast.budget_start_month
+      , driver_forecast.additional_projected_spend
+      , driver_forecast.yearly_budget
+      FROM
+       ML.EXPLAIN_FORECAST(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`,
+    STRUCT(@{FORECAST_HORIZON} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) AS arima_forecast
+    LEFT JOIN
+    `eaf-barong-da-qa.billing.driver_based_forecast` as driver_forecast
+    ON arima_forecast.project_id = driver_forecast.projectid
+      AND DATE(arima_forecast.time_series_timestamp) = driver_forecast.budget_start_month
+
+      ;;
+  }
+
   measure: yearly_budget {
     label: "Total Budget"
     type: sum

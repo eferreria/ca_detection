@@ -122,7 +122,7 @@ application: helloworld-ts {
 
 application: dashboard-summarization {
   label: "Dashboard Insights Powered by Vertex AI"
-  file: "dashboard_summarization_bkup.js"
+  file: "dashboard_summarization.js"
   # url: "http://localhost:8080/bundle.js"
   mount_points: {
     dashboard_vis: yes
@@ -134,7 +134,7 @@ application: dashboard-summarization {
     use_form_submit: yes
     core_api_methods: ["run_inline_query","all_lookml_models","dashboard","dashboard_dashboard_elements"]
     external_api_urls: [
-      "https://websocker-dbsummarization-b32qynntlq-uc.a.run.app", "http://localhost:5000","http://localhost:3000","https://*.googleapis.com","https://slack.com/api/*","https://slack.com/*"
+      "https://websocketservice-b32qynntlq-uc.a.run.app ", "http://localhost:5000","http://localhost:3000","https://*.googleapis.com","https://slack.com/api/*","https://slack.com/*"
     ]
     #
     oauth2_urls: [
