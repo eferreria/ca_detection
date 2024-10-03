@@ -217,9 +217,7 @@ view: project_forecast_data_net_cost {
 
       -- Use last 57 weeks (~13 months) of billing data to train model
       WHERE
-      --  {% incrementcondition %} partition_date {% endincrementcondition %}
-      -- AND date(usage_start_date, 'America/Los_Angeles') < current_date('America/Los_Angeles')
-       DATE(gcp_billing_export.usage_start_date, 'America/Los_Angeles') >= DATE_SUB(DATE_SUB(CURRENT_DATE('America/Los_Angeles'), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+       DATE(gcp_billing_export.usage_start_date, 'America/Los_Angeles') < CURRENT_DATE('America/Los_Angeles')
       -- DATE(gcp_billing_export.partition_date)  >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
       GROUP BY
       1, 2, 3
