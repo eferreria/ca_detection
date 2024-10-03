@@ -2,20 +2,17 @@ view: gcp_billing_export {
   view_label: "Billing"
   derived_table: {
     partition_keys: ["partition_date"]
-
     cluster_keys: ["usage_start_date"]
-    datagroup_trigger: monthly_on_day_2
-
-
-    # increment_key: "partition_date"
-    # increment_offset: 1
+    datagroup_trigger: daily_datagroup
+    increment_key: "partition_date"
+    increment_offset: 1
     sql: SELECT
         *
       , generate_uuid() as pk
       , DATE(usage_start_time) as usage_start_date
 
       FROM `@{BILLING_TABLE}`
-      -- WHERE {% incrementcondition %} partition_date {% endincrementcondition %}
+      WHERE {% incrementcondition %} partition_date {% endincrementcondition %}
       ;;
   }
 

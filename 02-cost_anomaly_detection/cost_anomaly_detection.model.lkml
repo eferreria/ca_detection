@@ -1,11 +1,9 @@
 connection: "bigquery_connection"
 
-include: "/views/cost_anomaly/*.view.lkml"
-include: "/views/gcp_billing/*.view.lkml"
-include: "/views/*.view.lkml"
-include: "/config/datagroups.lkml"
-# include: "/explores/gcp_billing.explore"
-include: "/dashboards/*.dashboard"
+include: "views/*.view.lkml"
+include: "config/datagroups.lkml"
+include: "dashboards/*.dashboard"
+include: "/01-gcp_billing/views/*.view.lkml"
 
 label: "Anomaly Detection"
 

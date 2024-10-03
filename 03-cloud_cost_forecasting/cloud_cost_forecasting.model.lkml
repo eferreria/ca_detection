@@ -1,24 +1,10 @@
 connection: "bigquery_connection"
 
-include: "/views/**/*.view.lkml"
-include: "/config/datagroups.lkml"
-# include: "/explores/gcp_billing.explore"
-include: "/dashboards/*.dashboard"
-
-#### BQML Model Information Explore ####
-#(
-explore: bqml_model_info {
-  hidden: no
-  label: "BQML Model Information"
-  description: "Use this Explore for an Overview of BQML Models including creation time, duration, and feature details."
-
-  join: bqml_model_info__feature_info {
-    view_label: "Feature Information"
-    relationship: one_to_many
-    sql: LEFT JOIN UNNEST(${bqml_model_info.feature_info}) AS bqml_model_info__feature_info ;;
-  }
-}
-#)
+include: "views/*.view.lkml"
+include: "config/datagroups.lkml"
+include: "/02-cost_anomaly_detection/views/*.view.lkml"
+include: "/01-gcp_billing/views/*.view.lkml"
+# include: "dashboards/*.dashboard"
 
 
 #### GCP Project Anomaly Detection Explores ####

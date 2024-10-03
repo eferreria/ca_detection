@@ -6,8 +6,8 @@ view: project_daily_spend {
   derived_table: {
     datagroup_trigger: near_real_time
     partition_keys: ["usage_start_date"]
-    # increment_key: "partition_date"
-    # increment_offset: 0
+    increment_key: "partition_date"
+    increment_offset: 0
     sql:
     SELECT
               gcp_billing_export.project.id AS project_id,
@@ -25,8 +25,8 @@ view: project_daily_spend {
         -- Use last 57 weeks (~13 months) of billing data to train model
         -- AND DATE(gcp_billing_export.usage_start_time) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
         AND
-        DATE(gcp_billing_export.partition_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
-        -- {% incrementcondition %} partition_date {% endincrementcondition %}
+        -- DATE(gcp_billing_export.partition_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+        {% incrementcondition %} partition_date {% endincrementcondition %}
         GROUP BY
         1,
         2,
@@ -133,8 +133,8 @@ view: project_input_data_net_cost {
 
       -- Use last 57 weeks (~13 months) of billing data to train model
       WHERE
-      -- DATE(gcp_billing_export.usage_start_time) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
-      DATE(gcp_billing_export.partition_date)  >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+      DATE(gcp_billing_export.usage_start_time, 'America/Los_Angeles') >= DATE_SUB(DATE_SUB(CURRENT_DATE('America/Los_Angeles'), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+      --DATE(gcp_billing_export.partition_date)  >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
       GROUP BY
       1, 2, 3
       ;;
@@ -193,8 +193,6 @@ view: project_forecast_data_net_cost {
     datagroup_trigger: near_real_time
     partition_keys: ["usage_start_date"]
     cluster_keys: ["project_name","project_id"]
-    # increment_key: "usage_start_date"
-    # increment_offset: 45
     sql:
       WITH
 
@@ -218,8 +216,10 @@ view: project_forecast_data_net_cost {
       ON gcp_billing_export.project_id = avg_monthly_spend_by_project.project_id
 
       -- Use last 57 weeks (~13 months) of billing data to train model
-      -- WHERE
-      -- DATE(gcp_billing_export.usage_start_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+      WHERE
+      --  {% incrementcondition %} partition_date {% endincrementcondition %}
+      -- AND date(usage_start_date, 'America/Los_Angeles') < current_date('America/Los_Angeles')
+       DATE(gcp_billing_export.usage_start_date, 'America/Los_Angeles') >= DATE_SUB(DATE_SUB(CURRENT_DATE('America/Los_Angeles'), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
       -- DATE(gcp_billing_export.partition_date)  >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
       GROUP BY
       1, 2, 3

@@ -1,4 +1,4 @@
-include: "/views/gcp_billing/gcp_billing_export.view"
+include: "/01-gcp_billing/views/gcp_billing_export.view"
 # include: "/views/02_app_id_cost_anomalies/04_app_id_detect_anomalies_net_cost.view"
 
 # explore: eams {}
