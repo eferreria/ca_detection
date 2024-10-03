@@ -5,3 +5,6 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 include: "/explores/gcp_billing.explore.lkml"
 include: "/config/datagroups.lkml"
+include: "/dashboards/gcp_summary.dashboard"
+
+label: "CCM - GCP Billing"
