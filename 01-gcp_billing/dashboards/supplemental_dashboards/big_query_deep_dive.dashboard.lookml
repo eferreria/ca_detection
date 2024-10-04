@@ -167,7 +167,7 @@
       first_last: first
       num_rows: 0
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#112B4A",
-        font_color: !!null '', color_application: {collection_id: cme-colors, palette_id: cme-colors-diverging-0,
+        font_color: !!null '', color_application: {
           options: {constraints: {min: {type: minimum}, mid: {type: number, value: 0},
               max: {type: maximum}}, mirror: true, reverse: false, stepped: false}},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
@@ -726,8 +726,8 @@
     col: 12
     width: 12
     height: 8
-  - title: Slots Reserved vs Usage by Project for CME Org
-    name: Slots Reserved vs Usage by Project for CME Org
+  - title: Slots Reserved vs Usage by Project for Org
+    name: Slots Reserved vs Usage by Project for Org
     model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
@@ -910,8 +910,8 @@
     col: 0
     width: 24
     height: 9
-  - title: Slot Cost Allocation by Project for CME Org
-    name: Slot Cost Allocation by Project for CME Org
+  - title: Slot Cost Allocation by Project for Org
+    name: Slot Cost Allocation by Project for Org
     model: gcp_billing
     explore: gcp_billing_export
     type: looker_column

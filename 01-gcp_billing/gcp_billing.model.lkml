@@ -7,5 +7,5 @@ include: "config/datagroups.lkml"
 include: "dashboards/gcp_summary.dashboard"
 include: "dashboards/executive_summary.dashboard"
 include: "dashboards/updated_dashboards/*.dashboard"
-
+include: "dashboards/supplemental_dashboards/big_query_deep_dive.dashboard"
 label: "CCM - GCP Billing"
