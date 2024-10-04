@@ -1,20 +1,21 @@
 view: gcp_billing_export {
   view_label: "Billing"
-  derived_table: {
-    partition_keys: ["usage_start_date"]
-    cluster_keys: ["usage_start_date"]
-    datagroup_trigger: daily_datagroup
-    increment_key: "usage_start_date"
-    increment_offset: 40
-    sql: SELECT
-        *
-      , generate_uuid() as pk
-      , DATE(usage_start_time) as usage_start_date
+  sql_table_name: @{BILLING_TABLE} ;;
+  # derived_table: {
+  #   partition_keys: ["usage_start_date"]
+  #   cluster_keys: ["usage_start_date"]
+  #   datagroup_trigger: daily_datagroup
+  #   increment_key: "usage_start_date"
+  #   increment_offset: 40
+  #   sql: SELECT
+  #       *
+  #     , generate_uuid() as pk
+  #     , DATE(usage_start_time) as usage_start_date
 
-      FROM `@{BILLING_TABLE}`
-      WHERE {% incrementcondition %} usage_start_time {% endincrementcondition %}
-      ;;
-  }
+  #     FROM `@{BILLING_TABLE}`
+  #     WHERE {% incrementcondition %} usage_start_time {% endincrementcondition %}
+  #     ;;
+  # }
 
   dimension_group: partition {
     type: time

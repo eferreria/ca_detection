@@ -17,7 +17,8 @@ constant: FORECAST_HORIZON {
 }
 
 constant: BILLING_TABLE {
-  value: "eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B"
+  # value: "eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B"
+  value: "eaf-barong-da-qa.billing.consolidated_standard_billing_pdt"
 }
 
 constant: PRICING_TABLE {
