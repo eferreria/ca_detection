@@ -14,6 +14,11 @@ datagroup: daily_datagroup {
   max_cache_age: "24 hours"
 }
 
+datagroup: pricing_datagroup {
+  sql_trigger: select MAX(partition_date) from `@{PRICING_TABLE}` ;;
+  max_cache_age: "24 hours"
+}
+
 datagroup: near_real_time {
   sql_trigger: select count(*) from `@{BILLING_TABLE}` ;;
   max_cache_age: "1 hour"

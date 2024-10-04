@@ -16,14 +16,17 @@ view: gcp_billing_export {
       ;;
   }
 
-  dimension: app_id {
-    type: string
-    sql: ${TABLE}.app_id ;;
-    label: "App ID"
-  }
-
-  dimension: partition_date {
-    type: date
+  dimension_group: partition {
+    type: time
+    timeframes: [
+      raw
+      , time
+      , date
+      , month
+      , year
+    ]
+    # hidden: yes
+    datatype: date
     sql: ${TABLE}.partition_date ;;
   }
 
@@ -31,6 +34,40 @@ view: gcp_billing_export {
     hidden: yes
     primary_key: yes
     sql: ${TABLE}.pk ;;
+  }
+
+  dimension_group: _partitiondate {
+    hidden: yes
+    type: time
+    group_label: "Partition Fields"
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}._PARTITIONDATE ;;
+  }
+
+  dimension_group: _partitiontime {
+    description: "Partition column for the table - filter here to leverage partitions"
+    group_label: "Partition Fields"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}._PARTITIONTIME ;;
   }
 
   dimension: adjustment_info__description {
@@ -78,7 +115,6 @@ view: gcp_billing_export {
 
   dimension: cloud {
     type: string
-    suggestions: ["GCP", "Somthing Else", "GCPe"]
     sql: 'GCPe' ;;
     link: {
       label: "{{ value }} Cost Management"
@@ -221,7 +257,6 @@ view: gcp_billing_export {
 
   dimension: service__description {
     label: "Service Type"
-    description: "The Google Cloud service the specific SKU is a part of"
     type: string
     sql: ${TABLE}.service.description ;;
     group_label: "Service"
@@ -260,7 +295,6 @@ view: gcp_billing_export {
   }
 
   dimension: sku__description {
-    description: "The description of the individual SKU"
     type: string
     sql: ${TABLE}.sku.description ;;
     group_label: "SKU"
@@ -310,13 +344,13 @@ view: gcp_billing_export {
   dimension: usage__calculated_unit {
     type: string
     sql: CASE
-              -- VCPU RAM
-                WHEN ${usage__pricing_unit} = 'gibibyte hour' THEN 'GB'
-              -- VCPU Cores
-                WHEN ${usage__pricing_unit} = 'hour' THEN 'Count'
-              -- PD Storage
-              -- WHEN usage.pricing_unit = 'gibibyte month' THEN ROUND(SUM(usage.amount_in_pricing_units) * 30, 2)
-              ELSE ${usage__pricing_unit} END;;
+      -- VCPU RAM
+        WHEN ${usage__pricing_unit} = 'gibibyte hour' THEN 'GB'
+      -- VCPU Cores
+        WHEN ${usage__pricing_unit} = 'hour' THEN 'Count'
+      -- PD Storage
+      -- WHEN usage.pricing_unit = 'gibibyte month' THEN ROUND(SUM(usage.amount_in_pricing_units) * 30, 2)
+      ELSE ${usage__pricing_unit} END;;
     group_label: "Usage"
     group_item_label: "Calculated Unit"
   }
@@ -349,16 +383,13 @@ view: gcp_billing_export {
       month_name
     ]
     datatype: date
-    convert_tz: no
     sql:  ${TABLE}.usage_start_date
-      ;;
+    ;;
   }
 
-  dimension: usage_start_date_2 {
-    label: "Usage Start Date (PST)"
-    type: date
-    convert_tz: no
-    sql: TIMESTAMP_TRUNC(${TABLE}.usage_start_time, DAY, 'America/Los_Angeles') ;;
+  dimension: usage_start_time {
+    group_label: "Usage Start Date"
+    sql: ${TABLE}.usage_start_time ;;
   }
 
 
@@ -371,15 +402,15 @@ view: gcp_billing_export {
   measure: usage__amount_in_calculated_units {
     type: sum
     sql: CASE
-              -- VCPU RAM
-                WHEN usage.pricing_unit = 'gibibyte hour' THEN ${usage__amount_in_pricing_units}/24
-              -- VCPU Cores
-                WHEN usage.pricing_unit = 'hour' THEN ${usage__amount_in_pricing_units}/24
-              -- PD Storage
-              -- WHEN usage.pricing_unit = 'gibibyte month' THEN ROUND(SUM(usage.amount_in_pricing_units) * 30, 2)
-              ELSE ${usage__amount_in_pricing_units}
-            END;;
-            #html: <p> {{rendered_value}} {{usage__calculated_unit}} </p> ;;
+      -- VCPU RAM
+        WHEN usage.pricing_unit = 'gibibyte hour' THEN ${usage__amount_in_pricing_units}/24
+      -- VCPU Cores
+        WHEN usage.pricing_unit = 'hour' THEN ${usage__amount_in_pricing_units}/24
+      -- PD Storage
+      -- WHEN usage.pricing_unit = 'gibibyte month' THEN ROUND(SUM(usage.amount_in_pricing_units) * 30, 2)
+      ELSE ${usage__amount_in_pricing_units}
+    END;;
+    #html: <p> {{rendered_value}} {{usage__calculated_unit}} </p> ;;
       group_item_label: "Total Amount in Calculated Units"
       value_format_name: decimal_0
       drill_fields: [project__name,service__description,total_cost, total_usage_amount]
@@ -403,21 +434,21 @@ view: gcp_billing_export {
     #Sidney Stefani - updating drill fields
     measure: total_net_cost {
       type: number
-      # sql: ${total_cost} - ${gcp_billing_export__credits.total_amount};;
-      sql: ${total_cost} - ${total_credit_amount} ;;
+      sql: ${total_cost} - ${gcp_billing_export__credits.total_amount};;
+      #sql: ${total_cost} - ${total_credit_amount} ;;
       value_format: "#,##0.00"
-      # html: <a href="#drillmenu" target="_self">{{ currency_symbol._value }}{{ rendered_value }}</a>;;
+      #html: <a href="#drillmenu" target="_self">{{ currency_symbol._value }}{{ rendered_value }}</a>;;
       drill_fields: [total_cost, gcp_billing_export__credits.total_amount]
     }
 
-    measure: total_net_cost_old {
-      type: number
-      sql: ${total_cost} - ${gcp_billing_export__credits.total_amount};;
-      # sql: ${total_cost} - ${total_credit_amount} ;;
-      value_format: "#,##0.00"
-      # html: <a href="#drillmenu" target="_self">{{ currency_symbol._value }}{{ rendered_value }}</a>;;
-      drill_fields: [total_cost, gcp_billing_export__credits.total_amount]
-    }
+  measure: total_net_cost_old {
+    type: number
+    sql: ${total_cost} - ${gcp_billing_export__credits.total_amount};;
+    # sql: ${total_cost} - ${total_credit_amount} ;;
+    value_format: "#,##0.00"
+    # html: <a href="#drillmenu" target="_self">{{ currency_symbol._value }}{{ rendered_value }}</a>;;
+    drill_fields: [total_cost, gcp_billing_export__credits.total_amount]
+  }
 
     measure: total_credit_amount {
       type: sum
@@ -481,14 +512,14 @@ view: gcp_billing_export {
 
 ####DEVELOPMENT ON EXISTING FIELDS######
 
-    # measure: total_marketplace_cost {
-    #   type: sum
-    #   value_format_name: usd_0
-    #   filters: [pricing_mapping.marketplace_purchase: "Yes"]
-    #   sql: ${cost} ;;
-    # }
+    measure: total_marketplace_cost {
+      type: sum
+      value_format_name: usd_0
+      filters: [pricing_mapping.marketplace_purchase: "Yes"]
+      sql: ${cost} ;;
+    }
 
-
+    #Sidney Stefani - Creating Usage & CUD Metrics
     measure: all_usage {
       type: sum
       group_label: "Usage"
@@ -530,13 +561,13 @@ view: gcp_billing_export {
           else "Other" end;;
     }
 
-    # measure: active_commitment{
-    #   type: sum
-    #   value_format_name: decimal_0
-    #   sql: ${usage__amount}/86400 ;;
-    #   filters: [sku__description: "Commitment%",
-    #     pricing.pricing_usage_type: "Commitment"]
-    # }
+    measure: active_commitment{
+      type: sum
+      value_format_name: decimal_0
+      sql: ${usage__amount}/86400 ;;
+      filters: [sku__description: "Commitment%",
+        pricing.pricing_usage_type: "Commitment"]
+    }
 
     measure: utilizied_commitment{
       type: number
@@ -615,11 +646,9 @@ view: gcp_billing_export {
       sql: ${total_cud_cost}/NullIF(${total_cost_at_on_demand_rates},0) ;;
     }
 
-    #Rishi Ghai - String to Date
     dimension_group: invoice_month {
       label: "Invoice"
       type: time
-      #sql: ${TABLE}.invoice.month ;;
       datatype: date
       timeframes: [
         month,
@@ -627,7 +656,6 @@ view: gcp_billing_export {
       ]
       sql: date(CAST(substring(${TABLE}.invoice.month,1,4) AS int),CAST(substring(${TABLE}.invoice.month,5,2) AS int),01);;
     }
-
 
     #Rishi Ghai- Org ID
     dimension: gcp_org_id {
@@ -700,8 +728,9 @@ view: gcp_billing_export {
     measure: total_amount {
       label: "Total Credit Amount"
       type: sum
-      value_format: "#,##0.00"
-      html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
+      value_format_name: usd_0
+      #value_format: "#,##0.00"
+      #html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
       sql: -1*${amount} ;;
       drill_fields: [gcp_billing_export__credits.type,gcp_billing_export__credits.total_amount]
     }
@@ -710,7 +739,7 @@ view: gcp_billing_export {
       view_label: "Credits"
       type: sum
       value_format: "#,##0.00"
-      html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
+      # html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
       sql: -1*${amount} ;;
       filters: [gcp_billing_export__credits.type: "Sustained Usage Discount"]
       drill_fields: [gcp_billing_export__credits.id,gcp_billing_export__credits.name,total_amount]
@@ -720,7 +749,7 @@ view: gcp_billing_export {
       view_label: "Credits"
       type: sum
       value_format: "#,##0.00"
-      html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
+      # html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
       sql: -1*${amount} ;;
       filters: [gcp_billing_export__credits.type: "Committed Usage Discount, COMMITTED_USAGE_DISCOUNT_DOLLAR_BASE"]
       drill_fields: [gcp_billing_export__credits.id,gcp_billing_export__credits.name,total_amount]
@@ -730,7 +759,7 @@ view: gcp_billing_export {
       view_label: "Credits"
       type: sum
       value_format: "#,##0.00"
-      html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
+      # html: <a href="#drillmenu" target="_self">{{ gcp_billing_export.currency_symbol._value }}{{ rendered_value }}</a>;;
       sql: -1*${amount} ;;
       filters: [gcp_billing_export__credits.type: "Promotion"]
       drill_fields: [gcp_billing_export__credits.id,gcp_billing_export__credits.name,total_amount]
