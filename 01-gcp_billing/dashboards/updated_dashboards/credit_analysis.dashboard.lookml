@@ -6,7 +6,7 @@
   elements:
   - title: MTD Credit Amount
     name: MTD Credit Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.usage_start_month]
@@ -37,7 +37,7 @@
     height: 3
   - title: YTD Promotion Credits
     name: YTD Promotion Credits
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_promotional_credit, gcp_billing_export.usage_start_year]
@@ -68,7 +68,7 @@
     height: 3
   - title: Cost and Credit Breakdown
     name: Cost and Credit Breakdown
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -146,7 +146,7 @@
     height: 8
   - title: Credit Distribution by Project
     name: Credit Distribution by Project
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.project__name, gcp_billing_export__credits.total_amount]
@@ -207,7 +207,7 @@
     height: 8
   - title: Discount Breakdown
     name: Discount Breakdown
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export__credits.type,
@@ -282,7 +282,7 @@
     height: 8
   - title: YTD Credit Amount
     name: YTD Credit Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.usage_start_year]
@@ -313,7 +313,7 @@
     height: 3
   - title: QTD Promotion Credits
     name: QTD Promotion Credits
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_promotional_credit, gcp_billing_export.usage_start_quarter]
@@ -344,7 +344,7 @@
     height: 3
   - title: WTD Credit Amount
     name: WTD Credit Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.usage_start_week]
@@ -375,7 +375,7 @@
     height: 3
   - title: MTD Promotion Credits
     name: MTD Promotion Credits
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_promotional_credit, gcp_billing_export.usage_start_month]
@@ -406,7 +406,7 @@
     height: 3
   - title: QTD Credit Amount
     name: QTD Credit Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.usage_start_quarter]
@@ -437,7 +437,7 @@
     height: 3
   - title: WTD Promotion Credits
     name: WTD Promotion Credits
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export__credits.total_promotional_credit, gcp_billing_export.usage_start_week]
@@ -468,7 +468,7 @@
     height: 3
   - title: Promotion Distribution by Project
     name: Promotion Distribution by Project
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.project__name, gcp_billing_export__credits.total_promotional_credit]
@@ -532,7 +532,7 @@
     height: 8
   - title: Credit & Net Cost Percent Total
     name: Credit & Net Cost Percent Total
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.total_net_cost,
@@ -601,7 +601,7 @@
     height: 7
   - title: Total Discounts
     name: Total Discounts
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_single_record
     fields: [gcp_billing_export.billing_account_id, gcp_billing_export.total_cost,
@@ -623,7 +623,7 @@
     height: 7
   - title: MoM Credit Trends
     name: MoM Credit Trends
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export__credits.total_amount, gcp_billing_export.usage_start_month]
@@ -717,7 +717,7 @@
     height: 4
   - title: Adjustments View
     name: Adjustments View
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.adjustment_info__description, gcp_billing_export.adjustment_info__mode,
@@ -775,7 +775,7 @@
     height: 6
   - title: Credit Name
     name: Credit Name
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export__credits.name, gcp_billing_export__credits.type, gcp_billing_export__credits.total_amount]
@@ -887,7 +887,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id
@@ -901,7 +901,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date

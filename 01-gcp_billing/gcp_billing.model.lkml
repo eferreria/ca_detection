@@ -6,5 +6,6 @@ include: "explores/gcp_billing.explore.lkml"
 include: "config/datagroups.lkml"
 include: "dashboards/gcp_summary.dashboard"
 include: "dashboards/executive_summary.dashboard"
+include: "dashboards/updated_dashboards/*.dashboard"
 
 label: "CCM - GCP Billing"

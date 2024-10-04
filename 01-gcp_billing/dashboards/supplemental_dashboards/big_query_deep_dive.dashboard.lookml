@@ -6,7 +6,7 @@
   elements:
   - title: BigQuery by Day
     name: BigQuery by Day
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.service__description, gcp_billing_export.usage_start_date,
@@ -58,7 +58,7 @@
     height: 6
   - title: BigQuery Analysis and Slot Cost (no Storage) by Hour (7 days)
     name: BigQuery Analysis and Slot Cost (no Storage) by Hour (7 days)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_time, gcp_billing_export.total_net_cost,
@@ -117,7 +117,7 @@
     height: 8
   - title: BigQuery by SKU
     name: BigQuery by SKU
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_date, gcp_billing_export.sku__description,
@@ -209,7 +209,7 @@
     height: 14
   - title: BigQuery by Category Resource Group
     name: BigQuery by Category Resource Group
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month,
@@ -260,7 +260,7 @@
     height: 8
   - title: BigQuery Storage by Hour (7 days)
     name: BigQuery Storage by Hour (7 days)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.service__description, gcp_billing_export.usage_start_time,
@@ -318,7 +318,7 @@
     height: 7
   - title: BigQuery Storage in PB by Day for 120 days (Uncompressed)
     name: BigQuery Storage in PB by Day for 120 days (Uncompressed)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_date, gcp_billing_export.total_usage_amount]
@@ -374,7 +374,7 @@
     height: 7
   - title: BigQuery Storage in PB by Project
     name: BigQuery Storage in PB by Project
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_date, gcp_billing_export.total_usage_amount,
@@ -438,7 +438,7 @@
     height: 13
   - title: BigQuery Storage in PB by Day for 120 days (Compressed)
     name: BigQuery Storage in PB by Day for 120 days (Compressed)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_date, gcp_billing_export.total_usage_amount,
@@ -495,7 +495,7 @@
     height: 7
   - title: BigQuery Analysis by Region for 120 Days
     name: BigQuery Analysis by Region for 120 Days
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.total_cost, gcp_billing_export.usage_start_date, gcp_billing_export.location__region]
@@ -571,7 +571,7 @@
     height: 6
   - title: Cost per GB for Physical Storage (compressed)
     name: Cost per GB for Physical Storage (compressed)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.usage__amount_in_calculated_units,
@@ -644,7 +644,7 @@
     height: 7
   - title: Slots Owned per Hour for Last 60 Days
     name: Slots Owned per Hour for Last 60 Days
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_time, gcp_billing_export.total_usage_amount,
@@ -728,7 +728,7 @@
     height: 8
   - title: Slots Reserved vs Usage by Project for CME Org
     name: Slots Reserved vs Usage by Project for CME Org
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_time, gcp_billing_export.total_usage_amount,
@@ -820,7 +820,7 @@
     height: 11
   - title: Slots Reserved vs Usage by Project for Sandbox Org
     name: Slots Reserved vs Usage by Project for Sandbox Org
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_time, gcp_billing_export.total_usage_amount,
@@ -912,7 +912,7 @@
     height: 9
   - title: Slot Cost Allocation by Project for CME Org
     name: Slot Cost Allocation by Project for CME Org
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_time, gcp_billing_export.total_usage_amount,

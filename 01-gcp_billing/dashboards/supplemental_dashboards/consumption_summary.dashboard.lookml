@@ -8,7 +8,7 @@
   elements:
   - title: Weekly Top Services Usage
     name: Weekly Top Services Usage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_week, gcp_billing_export.usage__amount_in_calculated_units,
@@ -100,7 +100,7 @@
     height: 6
   - title: Daily Top Services Usage
     name: Daily Top Services Usage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_date, gcp_billing_export.usage__amount_in_calculated_units,
@@ -186,7 +186,7 @@
     height: 8
   - title: 'Weekly Services Usage & Costs '
     name: 'Weekly Services Usage & Costs '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage__amount_in_calculated_units, gcp_billing_export.total_cost,
@@ -346,7 +346,7 @@
     ui_config:
       type: advanced
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.service__description
@@ -359,7 +359,7 @@
     ui_config:
       type: advanced
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__name
@@ -373,7 +373,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.location__region
@@ -386,7 +386,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.department_name
@@ -399,7 +399,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project_id
@@ -412,7 +412,7 @@
     ui_config:
       type: button_toggles
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: pricing_mapping.marketplace_purchase

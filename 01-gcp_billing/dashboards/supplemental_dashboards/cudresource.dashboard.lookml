@@ -6,7 +6,7 @@
   elements:
   - title: CUD Cost Breakout by Project
     name: CUD Cost Breakout by Project
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.project__id, gcp_billing_export.total_cud_cost, gcp_billing_export.total_cost_at_on_demand_rates,
@@ -72,7 +72,7 @@
     height: 6
   - title: Total Core Usage Commit Coverage
     name: Total Core Usage Commit Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_month, pricing.pricing_usage_type, gcp_billing_export.usage__amount_in_calculated_units]
@@ -143,7 +143,7 @@
     height: 8
   - title: Total Cores Cost
     name: Total Cores Cost
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_cost]
@@ -221,7 +221,7 @@
     height: 2
   - title: Total Memory Cost
     name: Total Memory Cost
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_cost]
@@ -281,7 +281,7 @@
     height: 2
   - title: 'Persistent Disk: Usage & Insights'
     name: 'Persistent Disk: Usage & Insights'
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_month, pricing.pricing_type, gcp_billing_export.total_cost,
@@ -333,7 +333,7 @@
     height: 7
   - title: 'Persistent Disk: Cost Insights'
     name: 'Persistent Disk: Cost Insights'
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -420,7 +420,7 @@
     height: 7
   - title: Total Persistent Disk Cost
     name: Total Persistent Disk Cost
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_cost]
@@ -487,7 +487,7 @@
     height: 2
   - title: Total Memory Usage Commit Coverage
     name: Total Memory Usage Commit Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_month, pricing.pricing_usage_type, gcp_billing_export.usage__amount_in_calculated_units]
@@ -558,7 +558,7 @@
     height: 8
   - title: Cores CUD Cost Coverage
     name: Cores CUD Cost Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -666,7 +666,7 @@
     height: 8
   - title: Memory Usage Coverage
     name: Memory Usage Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [pricing.pricing_usage_type, gcp_billing_export.usage__amount_in_calculated_units]
@@ -743,7 +743,7 @@
     height: 2
   - title: Cores Usage Coverage
     name: Cores Usage Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [pricing.pricing_usage_type, gcp_billing_export.usage__amount_in_calculated_units]
@@ -820,7 +820,7 @@
     height: 2
   - title: Memory CUD Cost Coverage
     name: Memory CUD Cost Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -928,7 +928,7 @@
     height: 8
   - title: Persistent Disk Usage Coverage
     name: Persistent Disk Usage Coverage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [pricing.pricing_usage_type, gcp_billing_export.usage__amount_in_calculated_units]
@@ -1012,7 +1012,7 @@
     ui_config:
       type: button_group
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.machine_type
@@ -1025,7 +1025,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id
@@ -1039,7 +1039,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date
@@ -1052,7 +1052,7 @@
     ui_config:
       type: advanced
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.location__region
@@ -1066,7 +1066,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.billing_account_id

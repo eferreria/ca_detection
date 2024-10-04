@@ -34,7 +34,7 @@
     height: 2
   - title: MoM Networking SKU Costs
     name: MoM Networking SKU Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -113,7 +113,7 @@
     height: 8
   - title: WoW Networking SKU Costs
     name: WoW Networking SKU Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_week, gcp_billing_export.sku__description,
@@ -186,7 +186,7 @@
     height: 8
   - title: 'Trending Networking Group Usage '
     name: 'Trending Networking Group Usage '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [networking_group, gcp_billing_export.usage_start_week, gcp_billing_export.usage__amount_in_calculated_units]
@@ -283,7 +283,7 @@
     height: 7
   - title: Trending Networking Group Costs
     name: Trending Networking Group Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.total_cost, networking_group, gcp_billing_export.usage_start_week]
@@ -389,7 +389,7 @@
     height: 1
   - title: Trending Networking Group Project Costs
     name: Trending Networking Group Project Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [networking_group, gcp_billing_export.project__name, gcp_billing_export.total_cost,
@@ -511,7 +511,7 @@
       type: tag_list
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id
@@ -525,7 +525,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date

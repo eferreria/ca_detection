@@ -7,7 +7,7 @@
   elements:
   - title: Marketplace SKU Details
     name: Marketplace SKU Details
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.sku__description, gcp_billing_export.service__description,
@@ -83,7 +83,7 @@
     height: 5
   - title: Marketplace Costs vs GCP costs
     name: Marketplace Costs vs GCP costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_marketplace_cost, gcp_billing_export.usage_start_month,
@@ -172,7 +172,7 @@
     height: 5
   - title: Trending Marketplace Costs
     name: Trending Marketplace Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.service__description, gcp_billing_export.total_cost,
@@ -246,7 +246,7 @@
     height: 7
   - title: Untitled (Copy)
     name: Untitled (Copy)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_marketplace_cost, gcp_billing_export.total_net_cost,
@@ -286,7 +286,7 @@
     height: 3
   - title: Trending Marketplace Costs (Copy)
     name: Trending Marketplace Costs (Copy)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.invoice_month_month, gcp_billing_export.total_net_cost]
@@ -357,7 +357,7 @@
     height: 7
   - title: Untitled (Copy 3)
     name: Untitled (Copy 3)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_marketplace_cost, gcp_billing_export.total_net_cost,
@@ -401,7 +401,7 @@
     height: 3
   - title: Untitled (Copy 0)
     name: Untitled (Copy 0)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_marketplace_cost, gcp_billing_export.total_net_cost,
@@ -462,7 +462,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date

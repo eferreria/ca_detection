@@ -97,7 +97,7 @@
     height: 3
   - title: Cores Usage Amount by Type
     name: Cores Usage Amount by Type
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage__amount_in_calculated_units, gcp_billing_export.usage_start_month,
@@ -161,7 +161,7 @@
     height: 7
   - title: Cores Cost by Usage Type
     name: Cores Cost by Usage Type
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, pricing.pricing_usage_type, gcp_billing_export.total_cost]
@@ -229,7 +229,7 @@
     height: 7
   - title: Core Instance Generation
     name: Core Instance Generation
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [pricing.pricing_type, pricing.pricing_sub_type, pricing.pricing_usage_type,
@@ -295,7 +295,7 @@
     height: 7
   - title: Cores Cost by Usage Type (Copy)
     name: Cores Cost by Usage Type (Copy)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.usage_start_month, pricing.pricing_usage_type, gcp_billing_export.total_cost]
@@ -363,7 +363,7 @@
     height: 7
   - title: Cores Usage Amount by Type (Copy)
     name: Cores Usage Amount by Type (Copy)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage__amount_in_calculated_units, gcp_billing_export.usage_start_month,
@@ -427,7 +427,7 @@
     height: 7
   - title: Core Instance Generation (Copy)
     name: Core Instance Generation (Copy)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [pricing.pricing_type, pricing.pricing_sub_type, pricing.pricing_usage_type,
@@ -493,7 +493,7 @@
     height: 7
   - title: Persisten Disk Usage Last 7 Days
     name: Persisten Disk Usage Last 7 Days
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_date, pricing.pricing_type, gcp_billing_export.usage__calculated_unit,
@@ -559,7 +559,7 @@
     height: 8
   - title: Persistent Disk Usage
     name: Persistent Disk Usage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [pricing.pricing_type, gcp_billing_export.usage_start_month, gcp_billing_export.total_cost]
@@ -629,7 +629,7 @@
     height: 8
   - title: Network Costs
     name: Network Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [pricing.pricing_type, gcp_billing_export.usage_start_month, gcp_billing_export.total_cost]
@@ -700,7 +700,7 @@
     height: 8
   - title: Network Calculated Units
     name: Network Calculated Units
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [pricing.pricing_type, gcp_billing_export.usage_start_month, gcp_billing_export.usage__amount_in_calculated_units]
@@ -805,7 +805,7 @@
     height: 2
   - title: ''
     name: " (2)"
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -887,7 +887,7 @@
     height: 7
   - title: ''
     name: " (3)"
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_week, gcp_billing_export.service__description,
@@ -972,7 +972,7 @@
     height: 7
   - title: Regional Usage
     name: Regional Usage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [pricing.pricing_type, gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -1054,7 +1054,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id
@@ -1068,7 +1068,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date

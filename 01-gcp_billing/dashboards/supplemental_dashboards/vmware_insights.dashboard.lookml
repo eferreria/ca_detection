@@ -34,7 +34,7 @@
     height: 2
   - title: Month over Month GCVE SKU Costs
     name: Month over Month GCVE SKU Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -113,7 +113,7 @@
     height: 4
   - title: 'Week Over Week GCVE SKU Costs '
     name: 'Week Over Week GCVE SKU Costs '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_week, gcp_billing_export.sku__description,
@@ -195,7 +195,7 @@
     height: 1
   - title: Last 3 months GCVE Costs
     name: Last 3 months GCVE Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.project__name, gcp_billing_export.total_cost,
@@ -297,7 +297,7 @@
     height: 1
   - title: Usage Amount
     name: Usage Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.usage__amount_in_calculated_units]
@@ -356,7 +356,7 @@
     height: 5
   - title: Commitment Cost
     name: Commitment Cost
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost]
@@ -424,7 +424,7 @@
       type: tag_list
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id

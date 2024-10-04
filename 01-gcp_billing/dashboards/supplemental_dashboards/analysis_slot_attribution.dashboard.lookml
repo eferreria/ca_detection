@@ -1,6 +1,6 @@
 - name: add_a_unique_name_1673982963
   title: Untitled Visualization
-  model: gcp_billing_block
+  model: gcp_billing
   explore: gcp_billing_export
   type: looker_column
   fields: [gcp_billing_export.project__name, gcp_billing_export.total_usage_amount]

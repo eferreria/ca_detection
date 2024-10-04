@@ -45,7 +45,7 @@
     height: 1
   - title: MoM GKE SKU Costs
     name: MoM GKE SKU Costs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_month, gcp_billing_export.total_cost,
@@ -127,7 +127,7 @@
     height: 6
   - title: 'WoW GKE SKU Costs '
     name: 'WoW GKE SKU Costs '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.usage_start_week, gcp_billing_export.total_cost, gcp_billing_export.sku__description]
@@ -201,7 +201,7 @@
     height: 6
   - title: Trending GKE Groups Usage
     name: Trending GKE Groups Usage
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gke_grouping, gcp_billing_export.usage_start_week, gcp_billing_export.usage__amount_in_calculated_units]
@@ -293,7 +293,7 @@
     height: 6
   - title: 'GKE Groups Project Costs '
     name: 'GKE Groups Project Costs '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gke_grouping, gcp_billing_export.project__id, gcp_billing_export.app_id_with_unallocated,
@@ -389,7 +389,7 @@
     height: 5
   - title: 'Trending GKE Groups Cost '
     name: 'Trending GKE Groups Cost '
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.total_cost, gke_grouping, gcp_billing_export.usage_start_week,
@@ -498,7 +498,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__id
@@ -511,7 +511,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.component_id
@@ -524,7 +524,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.app_id_with_unallocated
@@ -537,7 +537,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: applications.name
@@ -551,7 +551,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date

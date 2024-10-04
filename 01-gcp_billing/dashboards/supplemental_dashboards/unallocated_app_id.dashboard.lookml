@@ -7,7 +7,7 @@
 #   elements:
 #   - title: Unallocated Label
 #     name: Unallocated Label
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     type: looker_grid
 #     fields: [gcp_billing_export.project__name, gcp_billing_export.service__description,
@@ -92,7 +92,7 @@
 #     height: 12
 #   - title: Labeled vs Unlabeled Resources (as % of Spend)
 #     name: Labeled vs Unlabeled Resources (as % of Spend)
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     type: looker_pie
 #     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.kubernetes_cluser_name]
@@ -190,7 +190,7 @@
 #     height: 5
 #   - title: Labeled Resources
 #     name: Labeled Resources
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     type: single_value
 #     fields: [gcp_billing_export.total_net_cost]
@@ -299,7 +299,7 @@
 #     height: 1
 #   - title: 'Top Ten Unallocated Projects '
 #     name: 'Top Ten Unallocated Projects '
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     type: looker_pie
 #     fields: [gcp_billing_export.project__name, gcp_billing_export.total_net_cost]
@@ -360,7 +360,7 @@
 #     height: 5
 #   - title: Unlabeled Resources
 #     name: Unlabeled Resources
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     type: single_value
 #     fields: [gcp_billing_export.total_net_cost]
@@ -467,7 +467,7 @@
 #     ui_config:
 #       type: relative_timeframes
 #       display: inline
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     listens_to_filters: []
 #     field: gcp_billing_export.usage_start_date
@@ -480,7 +480,7 @@
 #     ui_config:
 #       type: tag_list
 #       display: popover
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     listens_to_filters: []
 #     field: gcp_billing_export.project__id
@@ -493,7 +493,7 @@
 #     ui_config:
 #       type: tag_list
 #       display: popover
-#     model: gcp_billing_block
+#     model: gcp_billing
 #     explore: gcp_billing_export
 #     listens_to_filters: []
 #     field: gcp_billing_export.project__name

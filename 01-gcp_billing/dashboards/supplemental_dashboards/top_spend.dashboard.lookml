@@ -7,7 +7,7 @@
   elements:
   - title: Top 10 GCP Services
     name: Top 10 GCP Services
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_bar
     fields: [gcp_billing_export.total_cost]
@@ -73,7 +73,7 @@
     height: 7
   - title: Top 10 GCP SKUs
     name: Top 10 GCP SKUs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_bar
     fields: [gcp_billing_export.total_cost, gcp_billing_export.sku__description]
@@ -138,7 +138,7 @@
     height: 7
   - title: Top 10 App IDs
     name: Top 10 App IDs
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_bar
     fields: [gcp_billing_export.total_cost]
@@ -201,7 +201,7 @@
     height: 6
   - title: GCP SKUs Month Over Month
     name: GCP SKUs Month Over Month
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_cost, gcp_billing_export.sku__description, gcp_billing_export.usage_start_month]
@@ -287,7 +287,7 @@
     height: 7
   - title: GCP SKUs Week Over Week
     name: GCP SKUs Week Over Week
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_cost, gcp_billing_export.sku__description, gcp_billing_export.usage_start_week]
@@ -372,7 +372,7 @@
     height: 7
   - title: Top 10 GCP Projects
     name: Top 10 GCP Projects
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_waterfall
     fields: [gcp_billing_export.project__name, gcp_billing_export.total_cost]
@@ -439,7 +439,7 @@
     height: 11
   - title: Service Type Daily Spend
     name: Service Type Daily Spend
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.total_cost, gcp_billing_export.usage_start_date]
@@ -541,7 +541,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date
@@ -554,7 +554,7 @@
     ui_config:
       type: advanced
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.service__description
