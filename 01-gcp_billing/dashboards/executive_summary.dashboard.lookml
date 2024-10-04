@@ -6,7 +6,7 @@
   elements:
   - title: Invoice Net Cost and Credit Amount
     name: Invoice Net Cost and Credit Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_column
     fields: [gcp_billing_export.total_cost, gcp_billing_export.total_net_cost, gcp_billing_export__credits.total_amount,
@@ -53,7 +53,7 @@
     hidden_fields: [gcp_billing_export.total_cost]
     listen:
       Usage Start Date: gcp_billing_export.usage_start_date
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -63,7 +63,7 @@
     height: 8
   - title: New Tile
     name: New Tile
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.usage_start_year]
@@ -126,7 +126,7 @@
     hidden_fields: []
     y_axes: []
     listen:
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -136,7 +136,7 @@
     height: 2
   - title: New Tile
     name: New Tile (2)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.usage_start_quarter]
@@ -199,7 +199,7 @@
     hidden_fields: []
     y_axes: []
     listen:
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -209,7 +209,7 @@
     height: 2
   - title: New Tile
     name: New Tile (3)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.usage_start_month]
@@ -272,7 +272,7 @@
     hidden_fields: []
     y_axes: []
     listen:
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -282,7 +282,7 @@
     height: 2
   - title: New Tile
     name: New Tile (4)
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: single_value
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.usage_start_week]
@@ -345,7 +345,7 @@
     hidden_fields: []
     y_axes: []
     listen:
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -355,7 +355,7 @@
     height: 2
   - title: Billing Account
     name: Billing Account
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_single_record
     fields: [gcp_billing_export.billing_account_id, gcp_billing_export.total_cost,
@@ -368,7 +368,7 @@
     y_axes: []
     listen:
       Usage Start Date: gcp_billing_export.usage_start_date
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -378,7 +378,7 @@
     height: 4
   - title: MoM Invoice Amount
     name: MoM Invoice Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_net_cost, gcp_billing_export.invoice_month_month]
@@ -542,7 +542,7 @@
     labelColorEnabled: false
     labelColor: "#FFF"
     listen:
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -552,7 +552,7 @@
     height: 6
   - title: Quarterly Invoice Amount
     name: Quarterly Invoice Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_line
     fields: [gcp_billing_export.total_cost, gcp_billing_export.total_net_cost, gcp_billing_export.invoice_month_quarter,
@@ -604,7 +604,7 @@
     hidden_fields: [gcp_billing_export.total_cost]
     listen:
       Usage Start Date: gcp_billing_export.usage_start_date
-      Service Name: billing_lookup.service_name
+      Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -614,7 +614,7 @@
     height: 8
   - title: Monthly Support Cost Amount
     name: Monthly Support Cost Amount
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     type: looker_grid
     fields: [gcp_billing_export.total_cost, gcp_billing_export.total_net_cost, gcp_billing_export__credits.total_amount,
@@ -689,7 +689,7 @@
     interpolation: linear
     listen:
       Usage Start Date: gcp_billing_export.usage_start_date
-      Service Name: billing_lookup.service_name
+      # Service Name: gcp_billing_export.service__description
       Project Name: gcp_billing_export.project__name
       Location Region: gcp_billing_export.location__region
       Is Marketplace Purchase? (Yes / No): pricing_mapping.marketplace_purchase
@@ -704,78 +704,78 @@
     col: 0
     width: 24
     height: 1
-  - title: Contractual Spend with Actual Cost
-    name: Contractual Spend with Actual Cost
-    model: gcp_billing_block
-    explore: gcp_billing_export
-    type: looker_column
-    fields: [spend.month_month, spend.total_forecast, gcp_billing_export.total_net_cost]
-    fill_fields: [spend.month_month]
-    filters:
-      spend.month_month: NOT NULL
-    sorts: [spend.month_month]
-    limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: Spend, value_format: !!null '',
-        value_format_name: !!null '', based_on: spend.cumulative_spend, _kind_hint: measure,
-        measure: spend, type: max, _type_hint: number, filters: {}}, {category: table_calculation,
-        expression: 'if(${spend.total_forecast} = 0, null, ${spend.total_forecast})',
-        label: Forecast, value_format: !!null '', value_format_name: usd_0, _kind_hint: measure,
-        table_calculation: forecast, _type_hint: number}, {category: table_calculation,
-        label: Total Net Cost, value_format: !!null '', value_format_name: usd_0,
-        calculation_type: running_total, table_calculation: total_net_cost, args: [
-          gcp_billing_export.total_net_cost], _kind_hint: measure, _type_hint: number}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: spend.total_spend, id: spend.total_spend,
-            name: Total Spend}, {axisId: forecast, id: forecast, name: Forecast}],
-        showLabels: true, showValues: true, valueFormat: '[>=1000000]$0.00,,"M";$0.00,"K"',
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: '9'
-    hidden_series: []
-    font_size: 10px
-    label_value_format: '[>=1000000]$0.00,,"M";$0.00,"K"'
-    series_types: {}
-    label_rotation:
-    reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
-        margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '100000000', label: "$100M Commit"}]
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    hidden_fields: [spend.total_forecast, gcp_billing_export.total_net_cost]
-    listen:
-    row: 17
-    col: 8
-    width: 16
-    height: 8
+  # - title: Contractual Spend with Actual Cost
+  #   name: Contractual Spend with Actual Cost
+  #   model: gcp_billing
+  #   explore: gcp_billing_export
+  #   type: looker_column
+  #   fields: [spend.month_month, spend.total_forecast, gcp_billing_export.total_net_cost]
+  #   fill_fields: [spend.month_month]
+  #   filters:
+  #     spend.month_month: NOT NULL
+  #   sorts: [spend.month_month]
+  #   limit: 500
+  #   dynamic_fields: [{category: measure, expression: !!null '', label: Spend, value_format: !!null '',
+  #       value_format_name: !!null '', based_on: spend.cumulative_spend, _kind_hint: measure,
+  #       measure: spend, type: max, _type_hint: number, filters: {}}, {category: table_calculation,
+  #       expression: 'if(${spend.total_forecast} = 0, null, ${spend.total_forecast})',
+  #       label: Forecast, value_format: !!null '', value_format_name: usd_0, _kind_hint: measure,
+  #       table_calculation: forecast, _type_hint: number}, {category: table_calculation,
+  #       label: Total Net Cost, value_format: !!null '', value_format_name: usd_0,
+  #       calculation_type: running_total, table_calculation: total_net_cost, args: [
+  #         gcp_billing_export.total_net_cost], _kind_hint: measure, _type_hint: number}]
+  #   x_axis_gridlines: false
+  #   y_axis_gridlines: true
+  #   show_view_names: false
+  #   show_y_axis_labels: true
+  #   show_y_axis_ticks: true
+  #   y_axis_tick_density: default
+  #   y_axis_tick_density_custom: 5
+  #   show_x_axis_label: true
+  #   show_x_axis_ticks: true
+  #   y_axis_scale_mode: linear
+  #   x_axis_reversed: false
+  #   y_axis_reversed: false
+  #   plot_size_by_field: false
+  #   trellis: ''
+  #   stacking: ''
+  #   limit_displayed_rows: false
+  #   legend_position: center
+  #   point_style: none
+  #   show_value_labels: true
+  #   label_density: 25
+  #   x_axis_scale: auto
+  #   y_axis_combined: true
+  #   ordering: none
+  #   show_null_labels: false
+  #   show_totals_labels: true
+  #   show_silhouette: false
+  #   totals_color: "#808080"
+  #   y_axes: [{label: '', orientation: left, series: [{axisId: spend.total_spend, id: spend.total_spend,
+  #           name: Total Spend}, {axisId: forecast, id: forecast, name: Forecast}],
+  #       showLabels: true, showValues: true, valueFormat: '[>=1000000]$0.00,,"M";$0.00,"K"',
+  #       unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+  #   limit_displayed_rows_values:
+  #     show_hide: hide
+  #     first_last: first
+  #     num_rows: '9'
+  #   hidden_series: []
+  #   font_size: 10px
+  #   label_value_format: '[>=1000000]$0.00,,"M";$0.00,"K"'
+  #   series_types: {}
+  #   label_rotation:
+  #   reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
+  #       margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
+  #       line_value: '100000000', label: "$100M Commit"}]
+  #   show_null_points: true
+  #   interpolation: linear
+  #   defaults_version: 1
+  #   hidden_fields: [spend.total_forecast, gcp_billing_export.total_net_cost]
+  #   listen:
+  #   row: 17
+  #   col: 8
+  #   width: 16
+  #   height: 8
   filters:
   - name: Usage Start Date
     title: Usage Start Date
@@ -787,7 +787,7 @@
       type: advanced
       display: popover
       options: []
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.usage_start_date
@@ -800,10 +800,10 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
-    field: billing_lookup.service_name
+    field: gcp_billing_export.service__description
   - name: Project Name
     title: Project Name
     type: field_filter
@@ -813,7 +813,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.project__name
@@ -826,7 +826,7 @@
     ui_config:
       type: advanced
       display: popover
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: gcp_billing_export.location__region
@@ -839,7 +839,7 @@
     ui_config:
       type: button_toggles
       display: inline
-    model: gcp_billing_block
+    model: gcp_billing
     explore: gcp_billing_export
     listens_to_filters: []
     field: pricing_mapping.marketplace_purchase

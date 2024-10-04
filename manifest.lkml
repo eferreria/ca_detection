@@ -22,7 +22,7 @@ constant: BILLING_TABLE {
 }
 
 constant: PRICING_TABLE {
-  value: "eaf-barong-da-qa.billing.cloud_pricing_export_v1_0090FE_ED3D81_AF8E3B"
+  value: "eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B"
   export: override_optional
 }
 
