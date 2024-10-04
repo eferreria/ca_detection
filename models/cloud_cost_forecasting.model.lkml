@@ -1,10 +1,12 @@
 connection: "bigquery_connection"
 
-# include: "/views/**/*.view.lkml"
+include: "/views/bqml_model_info.view.lkml"
+include: "/views/bqml_model_info__feature_info.view.lkml"
 include: "/views/cost_forecasting/*.view.lkml"
+include: "/views/cost_anomaly/*.view.lkml"
 include: "/config/datagroups.lkml"
-# include: "/explores/gcp_billing.explore"
-include: "/dashboards/*.dashboard"
+include: "/explores/gcp_billing.explore"
+# include: "/dashboards/*.dashboard"
 
 #### BQML Model Information Explore ####
 #(

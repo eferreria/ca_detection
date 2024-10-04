@@ -54,25 +54,25 @@ view: gcp_detailed_billing_export {
       ;;
   }
 
-  dimension: adjustment_info__description {
+  dimension: adjustment_info_description {
     type: string
     sql: ${TABLE}.adjustment_info.description ;;
     group_label: "Adjustment Info"
     group_item_label: "Description"
   }
-  dimension: adjustment_info__id {
+  dimension: adjustment_info_id {
     type: string
     sql: ${TABLE}.adjustment_info.id ;;
     group_label: "Adjustment Info"
     group_item_label: "ID"
   }
-  dimension: adjustment_info__mode {
+  dimension: adjustment_info_mode {
     type: string
     sql: ${TABLE}.adjustment_info.mode ;;
     group_label: "Adjustment Info"
     group_item_label: "Mode"
   }
-  dimension: adjustment_info__type {
+  dimension: adjustment_info_type {
     type: string
     sql: ${TABLE}.adjustment_info.type ;;
     group_label: "Adjustment Info"
@@ -111,7 +111,7 @@ view: gcp_detailed_billing_export {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.export_time ;;
   }
-  dimension: invoice__month {
+  dimension: invoice_month {
     type: string
     sql: ${TABLE}.invoice.month ;;
     group_label: "Invoice"
@@ -121,25 +121,28 @@ view: gcp_detailed_billing_export {
     hidden: yes
     sql: ${TABLE}.labels ;;
   }
-  dimension: location__country {
+  dimension: location_country {
     type: string
     sql: ${TABLE}.location.country ;;
     group_label: "Location"
     group_item_label: "Country"
   }
-  dimension: location__location {
+  dimension: location_location {
+    #alias: [location_location]
     type: string
     sql: ${TABLE}.location.location ;;
     group_label: "Location"
     group_item_label: "Location"
   }
-  dimension: location__region {
+  dimension: location_region {
+    #alias: [location_region]
     type: string
     sql: ${TABLE}.location.region ;;
     group_label: "Location"
     group_item_label: "Region"
   }
-  dimension: location__zone {
+  dimension: location_zone {
+    #alias: [location_zone]
     type: string
     sql: ${TABLE}.location.zone ;;
     group_label: "Location"
@@ -152,37 +155,38 @@ view: gcp_detailed_billing_export {
     datatype: date
     sql: ${TABLE}.partition_date ;;
   }
-  dimension: price__effective_price {
+  dimension: price_effective_price {
     type: number
     sql: ${TABLE}.price.effective_price ;;
     group_label: "Price"
     group_item_label: "Effective Price"
   }
-  dimension: price__pricing_unit_quantity {
+  dimension: price_pricing_unit_quantity {
     type: number
     sql: ${TABLE}.price.pricing_unit_quantity ;;
     group_label: "Price"
     group_item_label: "Pricing Unit Quantity"
   }
-  dimension: price__tier_start_amount {
+  dimension: price_tier_start_amount {
     type: number
     sql: ${TABLE}.price.tier_start_amount ;;
     group_label: "Price"
     group_item_label: "Tier Start Amount"
   }
-  dimension: price__unit {
+  dimension: price_unit {
     type: string
     sql: ${TABLE}.price.unit ;;
     group_label: "Price"
     group_item_label: "Unit"
   }
-  dimension: project__ancestors {
+  dimension: project_ancestors {
     hidden: yes
     sql: ${TABLE}.project.ancestors ;;
     group_label: "Project"
     group_item_label: "Ancestors"
   }
-  dimension: project__ancestry_numbers {
+  dimension: project_ancestry_numbers {
+    #alias: [project_ancestry_numbers]
     type: string
     sql: ${TABLE}.project.ancestry_numbers ;;
     group_label: "Project"
@@ -194,31 +198,35 @@ view: gcp_detailed_billing_export {
     group_label: "Project"
     group_item_label: "ID"
   }
-  dimension: project__labels {
+  dimension: project_labels {
     hidden: yes
     sql: ${TABLE}.project.labels ;;
     group_label: "Project"
     group_item_label: "Labels"
   }
-  dimension: project__name {
+  dimension: project_name {
+    #alias: [project_name]
     type: string
     sql: ${TABLE}.project.name ;;
     group_label: "Project"
     group_item_label: "Name"
   }
-  dimension: project__number {
+  dimension: project_number {
+    #alias: [project_number]
     type: string
     sql: ${TABLE}.project.number ;;
     group_label: "Project"
     group_item_label: "Number"
   }
-  dimension: resource__global_name {
+  dimension: resource_global_name {
+    #alias: [resource_global_name]
     type: string
     sql: ${TABLE}.resource.global_name ;;
     group_label: "Resource"
     group_item_label: "Global Name"
   }
-  dimension: resource__name {
+  dimension: resource_name {
+    #alias: [resource_name]
     type: string
     sql: ${TABLE}.resource.name ;;
     group_label: "Resource"
@@ -228,31 +236,35 @@ view: gcp_detailed_billing_export {
     type: string
     sql: ${TABLE}.seller_name ;;
   }
-  dimension: service__description {
+  dimension: service_description {
+    #alias: [service_description]
     type: string
     sql: ${TABLE}.service.description ;;
     group_label: "Service"
     group_item_label: "Description"
   }
-  dimension: service__id {
+  dimension: service_id {
+    #alias: [service_id]
     type: string
     sql: ${TABLE}.service.id ;;
     group_label: "Service"
     group_item_label: "ID"
   }
-  dimension: sku__description {
+  dimension: sku_description {
+    #alias: [sku_description]
     type: string
     sql: ${TABLE}.sku.description ;;
     group_label: "SKU"
     group_item_label: "Description"
   }
-  dimension: sku__id {
+  dimension: sku_id {
+    #alias: [sku_id]
     type: string
     sql: ${TABLE}.sku.id ;;
     group_label: "SKU"
     group_item_label: "ID"
   }
-  dimension: subscription__instance_id {
+  dimension: subscription_instance_id {
     type: string
     sql: ${TABLE}.subscription.instance_id ;;
     group_label: "Subscription"
@@ -274,25 +286,29 @@ view: gcp_detailed_billing_export {
     type: string
     sql: ${TABLE}.transaction_type ;;
   }
-  dimension: usage__amount {
+  dimension: usage_amount {
+    #alias: [usage_amount]
     type: number
     sql: ${TABLE}.usage.amount ;;
     group_label: "Usage"
     group_item_label: "Amount"
   }
-  dimension: usage__amount_in_pricing_units {
+  dimension: usage_amount_in_pricing_units {
+    #alias: [usage_amount_in_pricing_units]
     type: number
     sql: ${TABLE}.usage.amount_in_pricing_units ;;
     group_label: "Usage"
     group_item_label: "Amount In Pricing Units"
   }
-  dimension: usage__pricing_unit {
+  dimension: usage_pricing_unit {
+    #alias: [usage_pricing_unit]
     type: string
     sql: ${TABLE}.usage.pricing_unit ;;
     group_label: "Usage"
     group_item_label: "Pricing Unit"
   }
-  dimension: usage__unit {
+  dimension: usage_unit {
+    #alias: [usage_unit]
     type: string
     sql: ${TABLE}.usage.unit ;;
     group_label: "Usage"
@@ -310,7 +326,7 @@ view: gcp_detailed_billing_export {
   }
   measure: count {
     type: count
-    drill_fields: [seller_name, project__name, resource__name, resource__global_name]
+    drill_fields: [seller_name, project_name, resource_name, resource_global_name]
   }
 }
 
