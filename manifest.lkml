@@ -21,6 +21,10 @@ constant: BILLING_TABLE {
   value: "eaf-barong-da-qa.billing.consolidated_standard_billing_pdt"
 }
 
+constant: DETAILED_BILLING_TABLE {
+  value: "eaf-barong-da-qa.billing.gcp_billing_export_resource_v1_0189FA_E139FD_136A58"
+}
+
 constant: PRICING_TABLE {
   value: "eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B"
   export: override_optional
@@ -39,7 +43,6 @@ constant: ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD {
 constant: PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD {
   value: "cost_anomaly_detection::project_anomaly_deep_dive"
 }
-
 
 application: cloud_cost_forecasting {
   label: "Cloud Cost Forecasting"
