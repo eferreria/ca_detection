@@ -190,6 +190,23 @@ view: project_explain_forecast_net_cost {
     description: "The long-term increase or decrease in the time series data."
     sql: ${trend} ;;
     value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
   }
 
   measure: total_additional_projected_spend { ## new
