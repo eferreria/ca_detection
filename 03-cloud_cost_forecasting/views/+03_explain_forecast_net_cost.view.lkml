@@ -45,6 +45,23 @@ measure: total_trend {
      type: number
     sql: ${project_detect_anomalies_net_cost.total_net_cost} - ${total_forecast} ;;
     value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
    }
 
   measure: variance_percentage {

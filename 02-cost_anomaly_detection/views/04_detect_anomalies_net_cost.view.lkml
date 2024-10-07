@@ -331,6 +331,23 @@ view: project_detect_anomalies_net_cost {
     type: sum
     sql: ${total_cost} ;;
     value_format_name: usd_0
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
   }
 
   measure: avg_time_series_data {
