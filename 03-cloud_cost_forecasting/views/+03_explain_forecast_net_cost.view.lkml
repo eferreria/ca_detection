@@ -26,9 +26,77 @@ view: +project_explain_forecast_net_cost {
     value_format_name: usd
   }
 
+  measure: total_additional_projected_spend { ## new
+    tags: ["Total Additional Spend"]
+    type: sum
+    description: "The long-term increase or decrease in the time series data."
+    sql: ${additional_projected_spend} ;;
+    value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
+  }
+
+  measure: total_forecast {
+    tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend", "Forecasting Spend", "Total Forecasting Spend"]
+    type: number
+    description: "The long-term increase or decrease in the time series data."
+    sql: ${total_trend} + ${total_additional_projected_spend};;
+    value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
+  }
+
+
 
 measure: total_trend {
   label: "Total Spend"
+  html:
+  {% if value < -1000000 %}
+  ${{ value | divided_by: 1000000.0 | round: 2}} M
+  {% elsif value < -1000 %}
+  ${{ value | divided_by: 1000.0 | round: 2}} K
+  {% elsif value < 1000 %}
+  {{rendered_value}}
+  {% elsif value < 1000000 %}
+  ${{ value | divided_by: 1000.0 | round: 2}} K
+  {% elsif value < 1000000000 %}
+  ${{ value | divided_by: 1000000.0 | round: 2}} M
+  {% elsif value < 1000000000000 %}
+  ${{ value | divided_by: 1000000000.0 | round: 2}} B
+  {% else %}
+  {{rendered_value}}
+  {% endif %}
+  ;;
 }
   ##new
   measure: actual_forecast {
