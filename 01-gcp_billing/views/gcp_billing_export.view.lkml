@@ -1,6 +1,10 @@
+
 view: gcp_billing_export {
   view_label: "Billing"
   sql_table_name: @{BILLING_TABLE} ;;
+
+
+
   # derived_table: {
   #   partition_keys: ["usage_start_date"]
   #   cluster_keys: ["usage_start_date"]
@@ -432,7 +436,6 @@ view: gcp_billing_export {
       drill_fields: [service__description,total_cost]
     }
 
-    #Sidney Stefani - updating drill fields
     measure: total_net_cost {
       type: number
       sql: ${total_cost} - ${gcp_billing_export__credits.total_amount};;

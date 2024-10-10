@@ -1,5 +1,7 @@
-include: "recommendations.view.lkml"
-include: "gcp_billing_export.view.lkml"
+# Use this when the billing dataset has multiple BID across multiple currencies
+
+include: "/01-gcp_billing/views/recommendations.view.lkml"
+include: "/01-gcp_billing/views/gcp_billing_export.view.lkml"
 
 view: +gcp_billing_export {
   dimension: currency_symbol {

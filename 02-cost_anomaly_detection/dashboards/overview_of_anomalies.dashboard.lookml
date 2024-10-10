@@ -2,6 +2,7 @@
   title: Overview of Anomalies
   layout: newspaper
   preferred_viewer: dashboards-next
+  filters_location_top: false
   description: ''
   preferred_slug: 375pzVTOLkUDyW7HjfytMN
   elements:

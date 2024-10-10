@@ -22,7 +22,7 @@ constant: BILLING_TABLE {
 }
 
 constant: DETAILED_BILLING_TABLE {
-  value: "eaf-barong-da-qa.billing.gcp_billing_export_resource_v1_0189FA_E139FD_136A58"
+  value: "eaf-barong-da-qa.billing.consolidated_detailed_billing_pdt"
 }
 
 constant: PRICING_TABLE {
