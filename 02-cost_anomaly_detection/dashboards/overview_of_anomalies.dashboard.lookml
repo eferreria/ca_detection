@@ -624,7 +624,7 @@
   - name: Usage Date
     title: Usage Date
     type: field_filter
-    default_value: 2023/07/01 to 2023/07/31
+    default_value: last 30 days
     allow_multiple_values: false
     required: false
     ui_config:
