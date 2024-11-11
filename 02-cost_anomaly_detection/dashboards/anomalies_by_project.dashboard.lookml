@@ -1,9 +1,10 @@
+---
 - dashboard: anomaly_overview_by_project
   title: Anomaly Overview by Project
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: 2mWysBlVNUYIRcTameLdfd
+  preferred_slug: yq3maP67LSv0Eg6hp4qaek
   elements:
   - title: Anomaly Details
     name: Anomaly Details
@@ -37,7 +38,6 @@
       _kind_hint: dimension
       table_calculation: 30_day_average
       _type_hint: number
-    query_timezone: America/Chicago
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -47,7 +47,7 @@
     size_to_fit: true
     table_theme: white
     limit_displayed_rows: false
-    enable_conditional_formatting: true
+    enable_conditional_formatting: false
     header_text_alignment: left
     header_font_size: '12'
     rows_font_size: '12'
@@ -64,13 +64,15 @@
     truncate_header: false
     minimum_column_width: 75
     series_labels:
-      project_detect_anomalies_net_cost.absolute_distance_from_threshold: Deviation ($)
-      project_detect_anomalies_net_cost.absolute_percent_from_threshold: Deviation (%)
+      project_detect_anomalies_net_cost.absolute_distance_from_threshold: Deviation
+        ($)
+      project_detect_anomalies_net_cost.absolute_percent_from_threshold: Deviation
+        (%)
       7_day_average: 7 Day Average Cost
       30_day_average: 30 Day Average Cost
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#112B4A",
-        font_color: !!null '', bold: false, italic: false,
-        strikethrough: false, fields: [project_detect_anomalies_net_cost.absolute_distance_from_threshold]}]
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#1A73E8",
+        bold: false, italic: false, strikethrough: false, fields: [project_detect_anomalies_net_cost.absolute_distance_from_threshold],
+        color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2, palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}}]
     series_value_format:
       project_detect_anomalies_net_cost.lower_bound: "$#,##0.00"
       project_detect_anomalies_net_cost.upper_bound: "$#,##0.00"
@@ -129,7 +131,6 @@
   - name: "<h1>Model Information</h1>"
     type: text
     title_text: "<h1>Model Information</h1>"
-    subtitle_text: ''
     body_text: ''
     row: 32
     col: 4
@@ -146,7 +147,6 @@
       project_explain_forecast_net_cost.total_spikes_and_dips, project_explain_forecast_net_cost.total_step_changes,
       project_explain_forecast_net_cost.total_time_series_adjusted_data, project_explain_forecast_net_cost.total_time_series_data,
       project_explain_forecast_net_cost.total_trend]
-    filters: {}
     limit: 500
     column_limit: 50
     query_timezone: America/Chicago
@@ -212,8 +212,9 @@
     explore: project_arima_evaluate_net_cost
     type: looker_grid
     fields: [project_arima_evaluate_net_cost.aic, project_arima_evaluate_net_cost.log_likelihood,
-      project_arima_evaluate_net_cost.variance, project_arima_evaluate_net_cost.non_seasonal_p, project_arima_evaluate_net_cost.non_seasonal_d,
-      project_arima_evaluate_net_cost.non_seasonal_q, project_arima_evaluate_net_cost.has_drift, project_arima_evaluate_net_cost.has_holiday_effect,
+      project_arima_evaluate_net_cost.variance, project_arima_evaluate_net_cost.non_seasonal_p,
+      project_arima_evaluate_net_cost.non_seasonal_d, project_arima_evaluate_net_cost.non_seasonal_q,
+      project_arima_evaluate_net_cost.has_drift, project_arima_evaluate_net_cost.has_holiday_effect,
       project_arima_evaluate_net_cost.has_spikes_and_dips, project_arima_evaluate_net_cost.has_step_changes,
       project_arima_evaluate_net_cost.intercept_or_drift, project_arima_evaluate_net_cost.ma_coefficients,
       project_arima_evaluate_net_cost.seasonal_periods]
@@ -274,7 +275,6 @@
   - name: Evaluation Metrics Description
     type: text
     title_text: Evaluation Metrics Description
-    subtitle_text: ''
     body_text: "- **AIC (Akaike Information Criterion)**: A measure of the amount\
       \ of information lost by training and generalizing the model. It indicates how\
       \ well a model fits the data, while penalizing models with more parameters.\n\
@@ -312,7 +312,6 @@
       gcp_billing_export.usage_start_date]
     pivots: [gcp_billing_export.service__description]
     filters:
-      # pricing_mapping.marketplace_purchase: Yes,No
       gcp_billing_export.total_cost: ">25"
     sorts: [gcp_billing_export.service__description, gcp_billing_export.total_cost
         desc 0]
@@ -394,7 +393,6 @@
     type: looker_grid
     fields: [gcp_billing_export.project__id, gcp_billing_export.project__name]
     filters:
-      # pricing_mapping.marketplace_purchase: Yes,No
       gcp_billing_export.total_cost: ">25"
     limit: 500
     column_limit: 50
@@ -756,16 +754,18 @@
     show_null_points: false
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: project_detect_anomalies_net_cost.total_net_cost,
-            id: project_detect_anomalies_net_cost.total_net_cost, name: Total Net Cost}, {
-            axisId: project_detect_anomalies_net_cost.anomaly_time_series_data, id: project_detect_anomalies_net_cost.anomaly_time_series_data,
-            name: Anomaly}, {axisId: project_detect_anomalies_net_cost.min_lower_bound, id: project_detect_anomalies_net_cost.min_lower_bound,
+            id: project_detect_anomalies_net_cost.total_net_cost, name: Total Net
+              Cost}, {axisId: project_detect_anomalies_net_cost.anomaly_time_series_data,
+            id: project_detect_anomalies_net_cost.anomaly_time_series_data, name: Anomaly},
+          {axisId: project_detect_anomalies_net_cost.min_lower_bound, id: project_detect_anomalies_net_cost.min_lower_bound,
             name: Lower Bound}, {axisId: project_detect_anomalies_net_cost.max_upper_bound,
-            id: project_detect_anomalies_net_cost.max_upper_bound, name: Upper Bound}], showLabels: true,
-        showValues: true, valueFormat: "$#,##0.00", unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: project_explain_forecast_net_cost.forecast_period_highlight, id: project_explain_forecast_net_cost.forecast_period_highlight,
-            name: Forecast Period}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+            id: project_detect_anomalies_net_cost.max_upper_bound, name: Upper Bound}],
+        showLabels: true, showValues: true, valueFormat: "$#,##0.00", unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: !!null '',
+        orientation: right, series: [{axisId: project_explain_forecast_net_cost.forecast_period_highlight,
+            id: project_explain_forecast_net_cost.forecast_period_highlight, name: Forecast
+              Period}], showLabels: false, showValues: false, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     series_types:
@@ -796,7 +796,6 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<img src='https://cloud.google.com/images/social-icon-google-cloud-1200-630.png'\
       \ width = '100%' >"
     row: 0
@@ -806,7 +805,6 @@
   - name: "<h1>Project Level Breakdown</h1>"
     type: text
     title_text: "<h1>Project Level Breakdown</h1>"
-    subtitle_text: ''
     body_text: ''
     row: 0
     col: 6
@@ -818,7 +816,6 @@
     explore: project_detect_anomalies_net_cost
     type: looker_grid
     fields: [project_detect_anomalies_net_cost.link_to_gcp_console]
-    filters: {}
     sorts: [project_detect_anomalies_net_cost.link_to_gcp_console]
     limit: 500
     column_limit: 50
@@ -1033,7 +1030,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: ''
     row: 0
     col: 18
