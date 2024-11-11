@@ -127,11 +127,11 @@ view: project_detect_anomalies_net_cost {
     sql: "link" ;;
     # Usage date filtered on last 5 days leading up to the anomaly usage date and a 3 days after
     html:  <a href="{% assign filter_date = project_detect_anomalies_net_cost.usage_start_date._rendered_value %}{% assign filter_date_minus = filter_date | date: '%s' | minus: 432000 | date: '%Y-%m-%d' | uri_encode %}{% assign filter_date_plus = filter_date | date: '%s' | plus: 259200 | date: '%Y-%m-%d' | uri_encode %}/dashboards/@{PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ filter_date_minus }}+to+{{ filter_date_plus }}&Anomaly+Probability+Threshold={{_filters['set_anomaly_prob_threshold'] | url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}" target="_blank" >
-          <img border="0" alt="altText" src="https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
-            height="14" width="14">
+          Link
           </a> ;;
   }
-
+# <img border="0" alt="altText" src="https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
+#             height="14" width="14">
   #} project dimensions
 
   dimension_group: usage_start {
