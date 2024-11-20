@@ -1,6 +1,6 @@
 # #This file includes what is necessary to power Look 3 "Unalerted Anomalies" - the list of anomalies which need to generate alerts
 
-include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_detect_anomalies_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_project_detect_anomalies_net_cost.view.lkml"
 include: "00_cost_anomaly_alert_log.view"
 include: "00_gcp_contacts_mapping.view"
 include: "/02-cost_anomaly_detection/explores/project_anomalies.explore.lkml"

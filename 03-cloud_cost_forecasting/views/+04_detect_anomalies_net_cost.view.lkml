@@ -1,4 +1,4 @@
-include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_detect_anomalies_net_cost.view"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_project_detect_anomalies_net_cost.view"
 
 view: +project_detect_anomalies_net_cost {
   label: "AI Forecasting"

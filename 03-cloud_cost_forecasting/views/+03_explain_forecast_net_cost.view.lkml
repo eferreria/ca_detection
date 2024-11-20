@@ -1,4 +1,4 @@
-include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/03_explain_forecast_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/03_project_explain_forecast_net_cost.view.lkml"
 
 
 view: +project_explain_forecast_net_cost {
