@@ -8,27 +8,27 @@ include: "/02-cost_anomaly_detection/config/datagroups.lkml"
 include: "/02-cost_anomaly_detection/dashboards/*.dashboard"
 include: "/01-gcp_billing/views/*.view.lkml"
 
-label: "Anomaly Detection"
+label: "@{COST_ANOMALY_MODEL_A_NAME} Level Anomaly Detection"
 
-#### GCP Project Anomaly Detection Explores ####
-#(
+#### GCP Anomaly Detection Explores ####
+# (
 explore: project_input_data_net_cost {
-  label: "Project Input Data (GCP Project)"
+  label: "1a) @{COST_ANOMALY_MODEL_A_NAME}: Input Data"
   hidden: no
 }
 
 explore: project_create_model_net_cost {
-  label: "Project Create Model (GCP Project)"
+  label: "1b) @{COST_ANOMALY_MODEL_A_NAME}: Create Model"
   hidden: no
 }
 
 explore: project_arima_evaluate_net_cost {
-  label: "Project ARIMA Evaluate (GCP Project)"
+  label: "1c) @{COST_ANOMALY_MODEL_A_NAME}: ARIMA Evaluate"
   hidden: no
 }
 
 explore: project_explain_forecast_net_cost {
-  label: "Project Explain Forecast (GCP Project)"
+  label: "1d) @{COST_ANOMALY_MODEL_A_NAME}: Explain Forecast"
   hidden: no
   join: project_detect_anomalies_net_cost {
     relationship: one_to_one
@@ -39,10 +39,20 @@ explore: project_explain_forecast_net_cost {
 }
 
 explore: project_detect_anomalies_net_cost {
-  label: "Project Detect Anomalies (GCP Project)"
+  # persist_with: near_real_time
+  label: "1e) @{COST_ANOMALY_MODEL_A_NAME}: Detect Anomalies"
   hidden: no
-  # Add this filter so that underrun anomalies for the current day aren't flagged.
-  # sql_always_where: ${is_underrun_anomaly_today} ;;]
-
 }
-#)
+
+#### GCP Input Data Explores ####
+# (
+explore: project_daily_spend {
+  label: "1f) @{COST_ANOMALY_MODEL_A_NAME}: Daily Spend"
+}
+explore: project_avg_monthly_spend {
+  label: "1g) @{COST_ANOMALY_MODEL_A_NAME}: Average Monthly Spend"
+}
+explore: project_forecast_data_net_cost {
+  label: "1h) @{COST_ANOMALY_MODEL_A_NAME}: Forecast Data Net Cost"
+}
+# )
