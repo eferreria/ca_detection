@@ -1,4 +1,4 @@
-include: "/02-cost_anomaly_detection/views/01_create_model_net_cost.view"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/01_project_create_model_net_cost.view"
 view: +project_create_model_net_cost {
   derived_table: {
     datagroup_trigger: monthly_on_day_2
