@@ -1,13 +1,12 @@
+
 view: project_detect_anomalies_net_cost {
-
   label: "Detect Anomalies"
-
   derived_table: {
     sql:
       SELECT
         c.usage_start_date
-        ,c.project_name
-        ,c.project_id
+        ,c.project_name --TODO change based on model parameters
+        ,c.project_id --TODO change based on model parameters
         ,c.total_net_cost
         ,coalesce(c.is_anomaly,h.is_anomaly) as is_anomaly
         ,coalesce(c.lower_bound,h.lower_bound) as lower_bound
@@ -15,38 +14,37 @@ view: project_detect_anomalies_net_cost {
         ,coalesce(c.anomaly_probability,h.anomaly_probability) as anomaly_probability
       FROM
         (
-          --forecasted input_data (returns all rows but only anomaly details for forecasting period)
+          --Forecasted input_data (returns all rows but only anomaly details for forecasting period)
           SELECT
             *
-          FROM ML.DETECT_ANOMALIES(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`
-                                    , STRUCT({% parameter set_anomaly_prob_threshold %} AS anomaly_prob_threshold)
+          FROM ML.DETECT_ANOMALIES(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.@{COST_ANOMALY_MODEL_A}_net_cost_forecast`
+                                    , STRUCT(CAST({% parameter set_anomaly_prob_threshold %} AS NUMERIC) AS anomaly_prob_threshold)
                                     , (SELECT
                                          *
-                                      -- FROM ${project_input_data_net_cost.SQL_TABLE_NAME}
                                       FROM ${project_forecast_data_net_cost.SQL_TABLE_NAME}
                                       )
                                   )
         ) c
         LEFT JOIN
         (
-         --modeled input_data (returns only rows and anomaly details for historical data used to create model)
+         --Modeled input_data (returns only rows and anomaly details for historical data used to create model)
          SELECT
            *
-         FROM ML.DETECT_ANOMALIES(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.project_net_cost_forecast`
-                                   , STRUCT({% parameter set_anomaly_prob_threshold %} AS anomaly_prob_threshold)
+         FROM ML.DETECT_ANOMALIES(MODEL `@{GCP_PROJECT}.@{BQML_DATASET}.@{COST_ANOMALY_MODEL_A}_net_cost_forecast`
+                                   , STRUCT(CAST({% parameter set_anomaly_prob_threshold %} AS NUMERIC) AS anomaly_prob_threshold)
                                   )
         ) h
-         ON c.project_id = h.project_id
+         ON c.project_id = h.project_id --TODO change based on model parameters
          AND c.usage_start_date = h.usage_start_date
       ;;
   }
 
-  #PARAMETERS
+#  ------ START PARAMETERS ------ {
   parameter: set_anomaly_prob_threshold {
     label: "Set Anomaly Probability Threshold"
     description: "Set the anomaly probability threshold [0,1). The default value is 0.99. The net cost value at a specific timestamp
     is identified as anomalous if the anomaly probability exceeds the Anomaly Probability Threshold value."
-    type: number
+    type: string
     allowed_value: {value: "0.80" label: "80%"}
     allowed_value: {value: "0.85" label: "85%"}
     allowed_value: {value: "0.90" label: "90%"}
@@ -60,7 +58,7 @@ view: project_detect_anomalies_net_cost {
   parameter: set_absolute_delta_threshold {
     label: "Set Minimum Net Cost Difference from Upper/Lower Thresholds"
     description: "Set the minimum net cost dollar amount above or below the anomaly threshold for alerting. The default value is 100."
-    type: number
+    type: string
     allowed_value: {value: "0" label: "$0"}
     allowed_value: {value: "250" label: "$250"}
     allowed_value: {value: "500" label: "$500"}
@@ -76,7 +74,7 @@ view: project_detect_anomalies_net_cost {
   parameter: set_absolute_percent_threshold {
     label: "Set Minimum % Cost Difference from Upper/Lower Thresholds"
     description: "Set the minimum percent change amount above or below the anomaly threshold for alerting. The default value is 15%."
-    type: number
+    type: string
     allowed_value: {value: "0.0" label: "0%"}
     allowed_value: {value: "0.10" label: "10%"}
     allowed_value: {value: "0.15" label: "15%"}
@@ -84,7 +82,11 @@ view: project_detect_anomalies_net_cost {
     allowed_value: {value: "0.25" label: "25%"}
     default_value: "0.15"
   }
+#  ------ END PARAMETERS ------ }
 
+
+# --TODO change based on model parameters
+#  ------ START Customized Fields based on BQML Parameters ------ {
   dimension: pk {
     primary_key: yes
     hidden: yes
@@ -92,25 +94,18 @@ view: project_detect_anomalies_net_cost {
     sql: ${usage_start_date} || ${project_id};;
   }
 
-  #Project dimensions
-  #{
+  # Project dimensions
   dimension: project_name {
+    view_label: "Model Parameters"
     type: string
-    sql: ${TABLE}.project_name ;;
-    link: {
-      label: "Anomaly Overview by Project"
-      url: "https://b310db03-9970-4ee0-9947-80e8ddcb590a.looker.app/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
-    }
+    sql: COALESCE(${TABLE}.project_name, 'Null Project ID') ;;
   }
 
   dimension: project_id {
+    view_label: "Model Parameters"
     hidden: no
     type: string
     sql: ${TABLE}.project_id ;;
-    link: {
-      label: "Anomaly Overview by Project"
-      url: "https://b310db03-9970-4ee0-9947-80e8ddcb590a.looker.app/dashboards/@{ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ _filters['project_detect_anomalies_net_cost.usage_start_date'] | url_encode }}&Anomaly+Probability+Threshold={{_filters['project_detect_anomalies_net_cost.set_anomaly_prob_threshold']| url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}"
-    }
   }
 
   dimension: link_to_gcp_console {
@@ -122,18 +117,40 @@ view: project_detect_anomalies_net_cost {
   }
 
   dimension: link_to_anomaly_deep_dive {
-    # link to anomaly deep dive dashboard, to be used from anomaly details by project
-    hidden: yes
-    sql: "link" ;;
-    # Usage date filtered on last 5 days leading up to the anomaly usage date and a 3 days after
-    html:  <a href="{% assign filter_date = project_detect_anomalies_net_cost.usage_start_date._rendered_value %}{% assign filter_date_minus = filter_date | date: '%s' | minus: 432000 | date: '%Y-%m-%d' | uri_encode %}{% assign filter_date_plus = filter_date | date: '%s' | plus: 259200 | date: '%Y-%m-%d' | uri_encode %}/dashboards/@{PROJECT_ANOMALY_DEEP_DIVE_DASHBOARD}?Total+Cost+Difference+from+Threshold={{_filters['set_absolute_delta_threshold'] | url_encode}}&Usage+Date={{ filter_date_minus }}+to+{{ filter_date_plus }}&Anomaly+Probability+Threshold={{_filters['set_anomaly_prob_threshold'] | url_encode}}&Project+ID={{ project_id._value | url_encode }}&Project+Name={{ project_name._value | url_encode }}&Percent+Difference+from+Threshold={{_filters['set_absolute_percent_threshold'] | url_encode}}" target="_blank" >
-          Link
-          </a> ;;
+    # link to anomaly deep dive dashboard, to be used from anomaly details
+    can_filter: no
+    hidden: no
+    sql: "Links";;
+    link: {
+      label: "{{project_name._value}} Anomalies Deep Dive"
+      url: "/dashboards/@{MODEL_A_ANOMALY_DEEP_DIVE_DASHBOARD}?@{ANOMALY_DEEP_DIVE_STANDARD_FILTERS}&@{MODEL_A_ANOMALY_DEEP_DIVE_DASHBOARD_FILTERS}"
+      icon_url: "https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
+    }
   }
-# <img border="0" alt="altText" src="https://cdn-icons-png.flaticon.com/512/7079/7079548.png"
-#             height="14" width="14">
-  #} project dimensions
 
+  dimension: generate_anomaly_insights {
+    can_filter: no
+    hidden: no
+    sql: "Generate Anomaly Insights" ;;
+    description: "Generate Anomaly insights using Vertex AI, gemini-1.5-flash"
+    link: {
+      label: "Generate Anomaly Insights (Vertex AI, gemini-1.5-flash)"
+      url: "/explore/ccm_reporting/gen_ai?fields=gen_ai.ml_generate_text_llm_result&f[gen_ai.project_id]={{ project_detect_anomalies_net_cost.project_id._value | url_encode}}&f[gen_ai.usage_start_date]={{ usage_start_date._value | url_encode}}&f[gen_ai.set_absolute_delta_threshold]={{ _filters['set_absolute_delta_threshold']}}&f[gen_ai.set_absolute_percent_threshold]={{ _filters['set_absolute_percent_threshold']}}&f[gen_ai.set_anomaly_prob_threshold]={{ _filters['set_anomaly_prob_threshold']}}&sorts=gen_ai.ml_generate_text_llm_result&limit=500&column_limit=50&vis=%7B%22type%22%3A%22looker_single_record%22%7D"
+    }
+  }
+
+  ###############################################################################
+  ## SETS
+  ###############################################################################
+
+  # Will sort by first field in list or by date if a date field is included
+  set: anomaly_drill {
+    fields: [usage_start_date_string, project_name, project_id, lower_bound, upper_bound, total_cost, absolute_distance_from_threshold]
+  }
+
+#  ------ END Customized Fields based on BQML Parameters ------ }
+
+#  ------ START Standard Fields  ------ {
   dimension_group: usage_start {
     description: "The day in which the anomaly occurred"
     type: time
@@ -143,7 +160,7 @@ view: project_detect_anomalies_net_cost {
   }
 
   dimension: usage_start_date_string {
-    #add to drill as string so no impact on sort
+    # Add to drill as string so no impact on sort
     hidden: yes
     label: "Usage Start Date"
     type: string
@@ -156,23 +173,22 @@ view: project_detect_anomalies_net_cost {
     sql: DATE_SUB(DATE(${TABLE}.usage_start_date, INTERVAL 1 week) ;;
   }
 
-  # hide net cost dimension - will display as measaure
+  # Hide net cost dimension - will display as measaure
   dimension: total_cost {
+    description: "Spend within that project for the day"
     hidden: no
     type: number
     sql: ${TABLE}.total_net_cost ;;
     value_format_name: usd
   }
 
-  #Anomaly dimensions
-  #{
-
+  # Anomaly dimensions
   dimension: is_anomaly {
     description: "Anomaly for sensitivity"
     type: yesno
     sql: CASE WHEN ${TABLE}.is_anomaly
-                    AND ${absolute_distance_from_threshold} >= {% parameter set_absolute_delta_threshold %}
-                    AND ${absolute_percent_from_threshold} >= {% parameter set_absolute_percent_threshold %}
+                    AND ${absolute_distance_from_threshold} >= CAST({% parameter set_absolute_delta_threshold %} as NUMERIC)
+                    AND ${absolute_percent_from_threshold} >= CAST({% parameter set_absolute_percent_threshold %} as NUMERIC)
                 THEN ${TABLE}.is_anomaly
                 ELSE FALSE END ;;
   }
@@ -191,7 +207,7 @@ view: project_detect_anomalies_net_cost {
   dimension: lower_bound {
     description: "The lowest dollar value for which the solution would not classify spend as an anomaly"
     type: number
-    # Add 15% buffer on lower bounds to avoid double reporting on overruns.
+    # Add 15% buffer on lower bounds to avoid double reporting on overruns
     sql: (${TABLE}.lower_bound) - (0.15 * ${TABLE}.lower_bound) ;;
     value_format_name: usd
   }
@@ -290,11 +306,11 @@ view: project_detect_anomalies_net_cost {
               end;;
   }
 
-
   dimension: absolute_distance_from_threshold {
     description: "Dollar value that actual spend differed from the upper bound spend (a positive value indicates that actual spend > expected spend)"
     type: number
-    value_format: "$#.00;($#.00)"
+    # value_format: "$#.00;($#.00)"
+    value_format_name: usd
     sql:  abs(${distance_from_threshold}) ;;
   }
 
@@ -312,47 +328,28 @@ view: project_detect_anomalies_net_cost {
     value_format_name: percent_2
   }
 
-  #} anomaly dimensions
 
   ###############################################################################
   ## MEASURES
   ###############################################################################
 
   measure: row_count {
-    #   label: "Count of Date/Project"
+    # label: "Count of Date/Project"
     hidden: yes
     type: count
     drill_fields: [anomaly_drill*]
   }
 
   measure: total_net_cost {
-    description: "Total Net Cost"
-    tags: ["Total Actuals", "Actuals", "Actual Spend", "Net Cost", "Total Cost", "Cost"]
+    description: "Total Net Spend"
     type: sum
     sql: ${total_cost} ;;
-    value_format_name: usd_0
-    html:
-    {% if value < -1000000 %}
-    ${{ value | divided_by: 1000000 | round: 2}} M
-    {% elsif value < -1000 %}
-    ${{ value | divided_by: 1000 | round: 2}} K
-    {% elsif value < 1000 %}
-    {{rendered_value}}
-    {% elsif value < 1000000 %}
-    ${{ value | divided_by: 1000 | round: 2}} K
-    {% elsif value < 1000000000 %}
-    ${{ value | divided_by: 1000000 | round: 2}} M
-    {% elsif value < 1000000000000 %}
-    ${{ value | divided_by: 1000000000 | round: 2}} B
-    {% else %}
-    {{rendered_value}}
-    {% endif %}
-    ;;
+    value_format_name: decimal_2
   }
 
   measure: avg_time_series_data {
     label: "Average Total Cost"
-    description: "Average daily cost over the filtered time period that user has set"
+    description: "Average daily spend over the filtered time period that user has set"
     type: average
     sql: ${total_cost} ;;
     value_format_name: decimal_2
@@ -363,8 +360,7 @@ view: project_detect_anomalies_net_cost {
     sql: ${project_id} ;;
   }
 
-  #Anomaly measures
-  #{
+  # Anomaly measures
   measure: anomaly_time_series_data {
     description: "Show time series data where is_anomaly = 'Yes' else leave null. Can add this to a time series line chart to plot/overlay the anomaly values (e.g., change series chart type to scatter)"
     type: number
@@ -448,14 +444,14 @@ view: project_detect_anomalies_net_cost {
   }
 
   measure: anomaly_positive_pct {
-    hidden: yes
+    hidden: no
     type: number
     sql: safe_divide(${anomaly_positive_count},${anomaly_count}) ;;
     value_format_name: percent_2
   }
 
   measure: anomaly_negative_pct {
-    hidden: yes
+    hidden: no
     type: number
     sql: safe_divide(${anomaly_negative_count},${anomaly_count}) ;;
     value_format_name: percent_2
@@ -493,16 +489,5 @@ view: project_detect_anomalies_net_cost {
     sql: safe_divide(${avg_absolute_delta},${avg_time_series_data})  ;;
     value_format_name: percent_2
   }
-
-
-  #} end anomaly measures
-
-  ###############################################################################
-  ## SETs
-  ###############################################################################
-  # will sort by first field in list or by date if a date field is included
-  set: anomaly_drill {
-    fields: [usage_start_date_string, project_name, project_id, lower_bound, upper_bound, total_cost, absolute_distance_from_threshold]
-  }
-
+#  ------ END Standard Fields  ------ }
 }
