@@ -20,6 +20,11 @@ view: +project_explain_forecast_net_cost {
       ;;
   }
 
+  dimension: additional_projected_spend { ##new
+    type: number
+    sql: ${TABLE}.additional_projected_spend ;;
+  }
+
   measure: yearly_budget {
     label: "Total Budget"
     type: sum
