@@ -53,7 +53,7 @@ constant: COST_ANOMALY_MODEL_A {
 }
 
 constant: COST_ANOMALY_MODEL_A_NAME {
-  value: "Project_wf"
+  value: "Yanet's Holiday Task"
 }
 
 constant: ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD {
