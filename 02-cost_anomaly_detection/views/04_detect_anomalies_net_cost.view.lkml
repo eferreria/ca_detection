@@ -325,8 +325,15 @@ view: project_detect_anomalies_net_cost {
     drill_fields: [anomaly_drill*]
   }
 
+  dimension: is_for_demo {
+    type: yesno
+    sql: ${usage_start_raw}< TIMESTAMP("2024-07-01 00:00:00+00") ;;
+  }
+
+
   measure: total_net_cost {
     description: "Total Net Cost"
+    filters: [is_for_demo: "yes"]
     tags: ["Total Actuals", "Actuals", "Actual Spend", "Net Cost", "Total Cost", "Cost"]
     type: sum
     sql: ${total_cost} ;;
