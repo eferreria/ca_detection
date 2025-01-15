@@ -355,6 +355,7 @@ view: project_detect_anomalies_net_cost {
     {{rendered_value}}
     {% endif %}
     ;;
+    drill_fields: [project_id, total_net_cost]
   }
 
   measure: avg_time_series_data {
