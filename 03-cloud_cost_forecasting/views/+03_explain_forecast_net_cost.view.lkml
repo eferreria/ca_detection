@@ -74,7 +74,7 @@ view: +project_explain_forecast_net_cost {
     {{rendered_value}}
     {% endif %}
     ;;
-    drill_fields: [project_id, 04_detect_anomalies_net_cost.total_net_cost, 04_detect_anomalies_net_cost.total_forecast, ]
+    drill_fields: [project_id, 04_detect_anomalies_net_cost.total_net_cost, total_forecast, ]
   }
 
 
