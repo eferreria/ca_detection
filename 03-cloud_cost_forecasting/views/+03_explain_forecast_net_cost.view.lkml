@@ -155,6 +155,23 @@ measure: total_trend {
     type: number
     sql: (${cumulative_forecast}-${yearly_budget})  ;;
     value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
   }
 
 measure: cumulative_variance_percentage {
