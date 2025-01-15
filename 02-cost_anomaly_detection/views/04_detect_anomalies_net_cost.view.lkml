@@ -338,6 +338,7 @@ view: project_detect_anomalies_net_cost {
     type: sum
     sql: ${total_cost} ;;
     value_format_name: usd_0
+    label: "Actual Spend"
     html:
     {% if value < -1000000 %}
     ${{ value | divided_by: 1000000 | round: 2}} M
