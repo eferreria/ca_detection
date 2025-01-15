@@ -1,4 +1,5 @@
 include: "/02-cost_anomaly_detection/views/03_explain_forecast_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/04_detect_anomalies_net_cost.view.lkml"
 
 view: +project_explain_forecast_net_cost {
   label: "Explain Forecast"
@@ -75,7 +76,7 @@ view: +project_explain_forecast_net_cost {
     {{rendered_value}}
     {% endif %}
     ;;
-    drill_fields: [project_id, 04_detect_anomalies_net_cost.total_net_cost, total_forecast, ]
+    drill_fields: [project_id, project_detect_anomalies_net_cost.total_net_cost, total_forecast, variance_amount]
   }
 
 
