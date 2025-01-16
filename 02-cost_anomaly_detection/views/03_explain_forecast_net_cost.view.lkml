@@ -187,6 +187,7 @@ view: project_explain_forecast_net_cost {
 
   measure: total_trend {
     type: sum
+    label: "ML Forecast"
     description: "The long-term increase or decrease in the time series data."
     sql: ${trend} ;;
     value_format_name: usd
