@@ -1,5 +1,6 @@
-include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/03_project_explain_forecast_net_cost.view.lkml"
 
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/03_project_explain_forecast_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_project_detect_anomalies_net_cost.view.lkml"
 
 view: +project_explain_forecast_net_cost {
   label: "Explain Forecast"
@@ -60,6 +61,7 @@ view: +project_explain_forecast_net_cost {
   measure: total_forecast {
     tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend", "Forecasting Spend", "Total Forecasting Spend"]
     type: number
+    label: "Expected Spend"
     description: "The long-term increase or decrease in the time series data."
     sql: ${total_trend} + ${total_additional_projected_spend};;
     value_format_name: usd
@@ -80,6 +82,7 @@ view: +project_explain_forecast_net_cost {
     {{rendered_value}}
     {% endif %}
     ;;
+    drill_fields: [project_id, project_detect_anomalies_net_cost.total_net_cost, total_forecast, variance_amount]
   }
 
 
@@ -161,6 +164,23 @@ measure: total_trend {
     type: number
     sql: (${cumulative_forecast}-${yearly_budget})  ;;
     value_format_name: usd
+    html:
+    {% if value < -1000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < -1000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000 %}
+    {{rendered_value}}
+    {% elsif value < 1000000 %}
+    ${{ value | divided_by: 1000.0 | round: 2}} K
+    {% elsif value < 1000000000 %}
+    ${{ value | divided_by: 1000000.0 | round: 2}} M
+    {% elsif value < 1000000000000 %}
+    ${{ value | divided_by: 1000000000.0 | round: 2}} B
+    {% else %}
+    {{rendered_value}}
+    {% endif %}
+    ;;
   }
 
 measure: cumulative_variance_percentage {
