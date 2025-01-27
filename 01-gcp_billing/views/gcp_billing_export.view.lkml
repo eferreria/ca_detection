@@ -1,3 +1,252 @@
+explore: gcp_billing_export_txn {}
+
+view: gcp_billing_export_txn {
+  derived_table: {
+    datagroup_trigger: daily_datagroup
+    create_process: {
+
+      sql_step:
+      CREATE OR REPLACE TABLE ${SQL_TABLE_NAME}
+          ( process_id INT64
+          , process_date DATE
+          , process_name STRING
+          , min_source_date DATE
+          , max_source_date DATE
+          , source_table STRING
+          , max_dest_date DATE
+          , dest_table STRING)
+      ;;
+
+      # -- create process table if not exist
+      sql_step:
+       CREATE TABLE IF NOT EXISTS eaf-barong-da-qa.billing.billing_process
+       (
+        process_id INT64,
+        process_date DATE,
+        process_name STRING,
+        min_source_date DATE,
+        max_source_date DATE,
+        source_table STRING,
+        max_dest_date DATE,
+        dest_table STRING,
+        records_deleted INT64,
+        records_added INT64,
+        process_start_time TIMESTAMP,
+        process_end_time TIMESTAMP
+      )
+      ;;
+
+      # -- insert process variables values
+      sql_step:
+      DECLARE source_table, dest_table, v_process_name STRING;
+      DECLARE v_min_source_date, v_max_source_date, v_process_date, v_max_dest_date DATE;
+      DECLARE v_process_row_id, v_records_deleted, v_records_added INT64;
+      DECLARE v_process_start_time, v_process_end_time TIMESTAMP;
+      SET source_table = 'data-analytics-pocs.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B';
+      SET dest_table = 'eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B';
+      SET v_process_name = 'Process Data Analtics POCs Standard Billing Export';
+
+      SET (v_process_row_id, v_process_date, v_process_start_time)  =
+      (SELECT AS STRUCT
+        COALESCE(MAX(process_id),0) + 1, current_date(), current_timestamp()
+      FROM eaf-barong-da-qa.billing.billing_process);
+
+      -- insert initial processing values
+      INSERT INTO eaf-barong-da-qa.billing.billing_process (process_id, process_date, dest_table, source_table, process_start_time, process_name ) VALUES
+      (v_process_row_id, v_process_date, dest_table, source_table, v_process_start_time, v_process_name);
+
+      SET (v_min_source_date, v_max_source_date) = (
+  SELECT AS STRUCT min(_PARTITIONDATE), MAX(_PARTITIONDATE)
+  FROM `data-analytics-pocs.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`
+);
+
+-- get last partition date from dest
+SET v_max_dest_date = (SELECT max(partition_date) AS max_partition_date FROM `eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`);
+
+-- records to process [OPTIONAL]
+SET v_records_deleted = (SELECT COUNT(*) FROM  `eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B` WHERE partition_date >= v_max_dest_date);
+SET v_records_added = (SELECT COUNT(*) FROM `data-analytics-pocs.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B` WHERE _PARTITIONDATE >= v_max_dest_date);
+
+-- Delete most current partition in dest, only if it still exist in source
+IF v_min_source_date < v_max_dest_date THEN
+  -- Delete the most current partition only
+  DELETE
+  FROM `eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`
+  WHERE partition_date >= v_max_dest_date;
+ELSE
+  SELECT 'No records to delete';
+END IF;
+
+-- Add all the partitions starting from max_dest_date, but only if max_source_date > max_dest_date
+IF v_max_source_date >= v_max_dest_date THEN
+  -- Adding records from billing export where partitions >= max_dest_date
+  INSERT INTO `eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`
+  (SELECT _PARTITIONDATE as partition_date, * FROM `data-analytics-pocs.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`
+  WHERE _PARTITIONDATE >= v_max_dest_date);
+ELSE
+  SELECT 'No records to add';
+END IF;
+
+-- Obfuscate Project Names
+UPDATE eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B
+SET project.name =
+CASE
+  when project.name like '%spotify%' then REPLACE(project.name, 'spotify',COALESCE(project.number, '00'))
+  when project.name like '%equinix%' then REPLACE(project.name, 'equinix',COALESCE(project.number,'01'))
+  when project.name like '%bellcan%' then REPLACE(project.name, 'bellcan',COALESCE(project.number,'02'))
+  when project.name like '%ford%' then REPLACE(project.name, 'ford',COALESCE(project.number,'03'))
+  when project.name like '%lg-%' then REPLACE(project.name, 'lg-',COALESCE(project.number,'04'))
+  when project.name like '%broadcom%' then REPLACE(project.name, 'broadcom',COALESCE(project.number,'05'))
+  when project.name like '%capgemini%' then REPLACE(project.name, 'capgemini',COALESCE(project.number,'06'))
+  when project.name like '%deutsche%' then REPLACE(project.name, 'deutsche',COALESCE(project.number,'07'))
+  when project.name like '%Deutsche%' then REPLACE(project.name, 'Deutsche',COALESCE(project.number,'07'))
+  when project.name like '%apple%' then REPLACE(project.name, 'apple',COALESCE(project.number,'08'))
+  when project.name like '%bayer%' then REPLACE(project.name, 'bayer',COALESCE(project.number,'09'))
+  when project.name like '%sabre%' then REPLACE(project.name, 'sabre',COALESCE(project.number,'10'))
+  when project.name like '%panw%' then REPLACE(project.name, 'panw',COALESCE(project.number,'11'))
+else project.name
+end,
+project.id =
+CASE
+  when project.id like '%spotify%' then REPLACE(project.id, 'spotify',COALESCE(project.number,'00'))
+  when project.id like '%equinix%' then REPLACE(project.id, 'equinix',COALESCE(project.number,'01'))
+  when project.id like '%bellcan%' then REPLACE(project.id, 'bellcan',COALESCE(project.number,'02'))
+  when project.id like '%ford%' then REPLACE(project.id, 'ford',COALESCE(project.number,'03'))
+  when project.id like '%lg-%' then REPLACE(project.id, 'lg-',COALESCE(project.number,'04'))
+  when project.id like '%broadcom%' then REPLACE(project.id, 'broadcom',COALESCE(project.number,'05'))
+  when project.id like '%capgemini%' then REPLACE(project.id, 'capgemini',COALESCE(project.number,'06'))
+  when project.id like '%deutsche%' then REPLACE(project.id, 'deutsche',COALESCE(project.number,'07'))
+  when project.id like '%Deutsche%' then REPLACE(project.id, 'Deutsche',COALESCE(project.number,'07'))
+  when project.id like '%apple%' then REPLACE(project.id, 'apple',COALESCE(project.number,'08'))
+  when project.id like '%bayer%' then REPLACE(project.id, 'bayer',COALESCE(project.number,'09'))
+  when project.id like '%sabre%' then REPLACE(project.id, 'sabre',COALESCE(project.number,'10'))
+  when project.id like '%panw%' then REPLACE(project.id, 'panw',COALESCE(project.number,'10'))
+else project.id
+end
+ WHERE
+ partition_date >= v_max_dest_date;
+
+ -- update current process ID
+UPDATE eaf-barong-da-qa.billing.billing_process
+SET
+  min_source_date = v_min_source_date,
+  max_source_date = v_max_source_date,
+  max_dest_date = v_max_dest_date,
+  records_deleted = v_records_deleted,
+  records_added = v_records_added,
+  process_end_time = current_timestamp()
+WHERE process_id = v_process_row_id;
+
+-- create another record for updating the consolidated billing table
+-- insert initial processing values
+SET v_process_start_time = (SELECT current_timestamp());
+SET v_process_name = 'Update consolidated billing table PDT';
+SET v_process_row_id = v_process_row_id +1;
+SET source_table = 'eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B';
+SET dest_table = 'eaf-barong-da-qa.billing.consolidated_standard_billing_pdt';
+
+INSERT INTO eaf-barong-da-qa.billing.billing_process (process_id, process_date, dest_table, source_table, process_start_time, process_name ) VALUES
+(v_process_row_id, v_process_date, dest_table, source_table, v_process_start_time, v_process_name);
+
+-- Delete most current partition in dest, only if it still exist in source
+IF v_min_source_date < v_max_dest_date THEN
+  -- Delete the most current partition only
+  DELETE
+  FROM `eaf-barong-da-qa.billing.consolidated_standard_billing_pdt`
+  WHERE partition_date >= v_max_dest_date;
+ELSE
+  SELECT 'No records to delete';
+END IF;
+
+-- Add all the partitions starting from max_dest_date, but only if max_source_date > max_dest_date
+IF v_max_source_date >= v_max_dest_date THEN
+  -- Adding records from billing export where partitions >= max_dest_date
+  INSERT INTO `eaf-barong-da-qa.billing.consolidated_standard_billing_pdt`
+  (SELECT DATE(usage_start_time) as usage_start_date, generate_uuid() as pk, * FROM `eaf-barong-da-qa.billing.gcp_billing_export_v1_0090FE_ED3D81_AF8E3B`
+  WHERE partition_date >= v_max_dest_date);
+ELSE
+  SELECT 'No records to add';
+END IF;
+
+ -- update current process ID
+UPDATE eaf-barong-da-qa.billing.billing_process
+SET
+  min_source_date = v_min_source_date,
+  max_source_date = v_max_source_date,
+  max_dest_date = v_max_dest_date,
+  records_deleted = v_records_deleted,
+  records_added = v_records_added,
+  process_end_time = current_timestamp()
+WHERE process_id = v_process_row_id;
+
+-- create another record for updating the pricing table
+-- insert initial processing values
+SET v_process_start_time = (SELECT current_timestamp());
+SET v_process_name = 'Update pricing export';
+SET v_process_row_id = v_process_row_id +1;
+SET source_table = 'data-analytics-pocs.billing.cloud_pricing_export';
+SET dest_table = 'eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B';
+
+-- get min/max partition dates from source
+SET (v_min_source_date, v_max_source_date) = (
+  SELECT AS STRUCT min(_PARTITIONDATE), MAX(_PARTITIONDATE)
+  FROM `data-analytics-pocs.billing.cloud_pricing_export`
+);
+
+-- get last partition date from dest
+SET v_max_dest_date = (SELECT max(partition_date) AS max_partition_date FROM `eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B`);
+
+-- records to process [OPTIONAL]
+SET v_records_deleted = (SELECT COUNT(*) FROM  `eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B` WHERE partition_date >= v_max_dest_date);
+SET v_records_added = (SELECT COUNT(*) FROM `data-analytics-pocs.billing.cloud_pricing_export` WHERE _PARTITIONDATE >= v_max_dest_date);
+
+-- Delete most current partition in dest, only if it still exist in source
+IF v_min_source_date < v_max_dest_date THEN
+  -- Delete the most current partition only
+  DELETE
+  FROM `eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B`
+  WHERE partition_date >= v_max_dest_date;
+ELSE
+  SELECT 'No records to delete';
+END IF;
+
+-- Add all the partitions starting from max_dest_date, but only if max_source_date > max_dest_date
+IF v_max_source_date >= v_max_dest_date THEN
+  -- Adding records from billing export where partitions >= max_dest_date
+  INSERT INTO `eaf-barong-da-qa.billing.cloud_pricing_export_0090FE_ED3D81_AF8E3B`
+  (SELECT _PARTITIONDATE as partition_date, * FROM `data-analytics-pocs.billing.cloud_pricing_export`
+  WHERE _PARTITIONDATE >= v_max_dest_date);
+ELSE
+  SELECT 'No records to add';
+END IF;
+
+ -- update current process ID
+UPDATE eaf-barong-da-qa.billing.billing_process
+SET
+  min_source_date = v_min_source_date,
+  max_source_date = v_max_source_date,
+  max_dest_date = v_max_dest_date,
+  records_deleted = v_records_deleted,
+  records_added = v_records_added,
+  process_end_time = current_timestamp()
+WHERE process_id = v_process_row_id;
+
+
+
+      ;;
+
+      sql_step:
+      INSERT INTO ${SQL_TABLE_NAME} (process_id, process_date, process_name) VALUES (1, current_date(), 'Testing');;
+    }
+  }
+  dimension: process_id {
+    type: number
+    sql: ${TABLE}.process_id ;;
+  }
+}
+
+
+
 
 view: gcp_billing_export {
   view_label: "Billing"
