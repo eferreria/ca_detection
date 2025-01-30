@@ -61,7 +61,7 @@ constant: ANOMALY_OVERVIEW_BY_PROJECT_DASHBOARD {
 }
 
 constant: MODEL_A_ANOMALY_DEEP_DIVE_DASHBOARD {
-  value: "cost_anomaly_detection::project_anomaly_deep_dive" # Use Dashboard ID when Developing, Change to LookML ID when production
+  value: "154" # Use Dashboard ID when Developing, Change to LookML ID when production
 }
 
 constant: MODEL_A_ANOMALY_DEEP_DIVE_DASHBOARD_FILTERS {
