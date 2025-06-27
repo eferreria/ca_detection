@@ -4,7 +4,7 @@ include: "views/*.view.lkml"
 include: "config/datagroups.lkml"
 include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/*.view.lkml"
 include: "/01-gcp_billing/views/*.view.lkml"
-# include: "dashboards/*.dashboard"
+include: "dashboards/*.dashboard"
 
 
 #### GCP Project Anomaly Detection Explores ####
