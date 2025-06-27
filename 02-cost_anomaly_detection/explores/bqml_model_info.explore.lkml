@@ -1,8 +1,5 @@
 include: "/02-cost_anomaly_detection/views/bqml_model_info.view.lkml"
 include: "/02-cost_anomaly_detection/views/bqml_model_info__feature_info.view.lkml"
-include: "/02-cost_anomaly_detection/config/datagroups.lkml"
-include: "/02-cost_anomaly_detection/dashboards/*.dashboard"
-include: "/01-gcp_billing/views/*.view.lkml"
 
 label: "Anomaly Detection"
 

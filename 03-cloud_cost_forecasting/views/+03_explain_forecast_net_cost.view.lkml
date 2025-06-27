@@ -1,5 +1,5 @@
-include: "/02-cost_anomaly_detection/views/03_explain_forecast_net_cost.view.lkml"
-include: "/02-cost_anomaly_detection/views/04_detect_anomalies_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/03_project_explain_forecast_net_cost.view.lkml"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/04_project_detect_anomalies_net_cost.view.lkml"
 
 view: +project_explain_forecast_net_cost {
   label: "Explain Forecast"
@@ -18,6 +18,11 @@ view: +project_explain_forecast_net_cost {
       AND DATE(arima_forecast.time_series_timestamp) = driver_forecast.budget_start_month
 
       ;;
+  }
+
+  dimension: additional_projected_spend { ##new
+    type: number
+    sql: ${TABLE}.additional_projected_spend ;;
   }
 
   measure: yearly_budget {

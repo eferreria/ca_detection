@@ -18,3 +18,14 @@ datagroup: near_real_time {
   sql_trigger: select count(*) from `@{BILLING_TABLE}` ;;
   max_cache_age: "1 hour"
 }
+
+datagroup: pricing_datagroup {
+  sql_trigger: select MAX(partition_date) from `@{PRICING_TABLE}` ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: billing_datagroup {
+  sql_trigger: select MAX(usage_date) from `@{BILLING_TABLE}` ;;
+  max_cache_age: "24 hour"
+  description: "Triggers a rebuild when new data is exported"
+}

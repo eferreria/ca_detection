@@ -1,4 +1,4 @@
-include: "/02-cost_anomaly_detection/views/00_input_data_net_cost.view"
+include: "/02-cost_anomaly_detection/views/01_project_cost_anomalies/00_project_input_data_net_cost.view"
 view: +project_avg_monthly_spend {
   derived_table: {
     datagroup_trigger: monthly_on_day_2
