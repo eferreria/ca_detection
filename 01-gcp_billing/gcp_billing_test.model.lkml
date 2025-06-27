@@ -1,6 +1,6 @@
 connection: "bigquery_connection"
 
-
+include: "views/aws_billing_cur.view.lkml"
 include: "config/datagroups.lkml"
 include: "explores/cloud_pricing_export.explore.lkml"
 include: "explores/gcp_billing.explore.lkml"
