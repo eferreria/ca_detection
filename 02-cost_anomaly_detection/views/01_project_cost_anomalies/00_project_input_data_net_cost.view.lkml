@@ -11,7 +11,7 @@ view: project_daily_spend {
     increment_key: "usage_start_date"
     increment_offset: 30
     explore_source: gcp_billing_export {
-      column: total_cost { field: gcp_billing_export.total_cost }
+      column: total_net_cost { field: gcp_billing_export.total_net_cost }
       column: project_id { field: gcp_billing_export.project__id }
       column: project_name { field: gcp_billing_export.project__name }
       column: usage_start_date { field: gcp_billing_export.usage_start_date }
@@ -20,7 +20,7 @@ view: project_daily_spend {
 
   measure: total_net_cost {
     type: sum
-    sql: ${total_cost} ;;
+    sql: ${total_net_cost} ;;
   }
   dimension: total_cost {
     label: "GCP Billing Resource Total Cost"
@@ -52,7 +52,7 @@ view: project_avg_monthly_spend {
           COALESCE(project_id, 'Null Project ID') as project_id,
           project_name as project_name,
           (FORMAT_TIMESTAMP('%Y-%m', project_daily_spend.usage_start_date , 'America/Los_Angeles')) AS usage_start_month,
-          SUM(total_cost) as total_net_cost
+          SUM(total_net_cost) as total_net_cost
         FROM
           ${project_daily_spend.SQL_TABLE_NAME} AS project_daily_spend
         WHERE
@@ -67,7 +67,7 @@ view: project_avg_monthly_spend {
       SELECT
         project_id,
         project_name,
-        AVG(total_net_cost) total_cost,
+        AVG(total_net_cost) total_net_cost,
         COUNT(1) as num_months
       FROM
         monthly_project_spend
@@ -75,7 +75,7 @@ view: project_avg_monthly_spend {
         1, 2
 
       -- Exclude Records with avg total cost < 1000
-      HAVING total_cost > (@{TOTAL_COST})
+      HAVING total_net_cost > (@{TOTAL_COST})
 
       -- Exclude Records with less than 3 months of history
       AND num_months > @{MIN_MONTHS_FOR_PROJECT}
@@ -84,13 +84,13 @@ view: project_avg_monthly_spend {
 
   dimension: project_id {}
   dimension: project_name {}
-  dimension: total_cost {}
+  # dimension: total_net_cost {}
   measure: count {
     type: count
   }
-  measure: total_costs {
+  measure: total_net_cost {
     type: sum
-    sql: ${total_cost} ;;
+    sql: ${total_net_cost} ;;
   }
 }
 view: project_input_data_net_cost {
@@ -177,7 +177,7 @@ view: project_input_data_net_cost {
   }
   measure: total_net_cost {
     type: sum
-    sql: ${total_cost} ;;
+    sql: ${total_net_cost} ;;
   }
 }
 view: project_forecast_data_net_cost {
