@@ -196,7 +196,7 @@ view: project_forecast_data_net_cost {
         (DATE(gcp_billing_export.usage_start_date)) AS usage_start_date,
         COALESCE(gcp_billing_export.project_id, "Null Project ID") AS project_id,
         gcp_billing_export.project_name AS project_name,
-        SUM(gcp_billing_export.total_cost) AS total_net_cost
+        SUM(gcp_billing_export.total_net_cost) AS total_net_cost
       FROM
         ${project_daily_spend.SQL_TABLE_NAME} AS gcp_billing_export
 
