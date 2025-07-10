@@ -343,7 +343,10 @@ view: project_detect_anomalies_net_cost {
   measure: total_net_cost {
     description: "Total Net Spend"
     type: sum
-    sql: ${total_cost} ;;
+    sql: case when FORMAT_DATE('%m-%Y',${usage_start_date}) <= FORMAT_DATE('%m-%Y', CURRENT_DATE())
+    then  ${project_detect_anomalies_net_cost.total_cost} else 0 end
+    -- sql: ${total_cost}
+    ;;
     value_format_name: decimal_2
   }
 

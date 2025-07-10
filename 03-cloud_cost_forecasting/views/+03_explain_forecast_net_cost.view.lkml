@@ -62,7 +62,7 @@ view: +project_explain_forecast_net_cost {
     type: number
     label: "Expected Spend"
     description: "The long-term increase or decrease in the time series data."
-    sql: ${total_trend} + ${total_additional_projected_spend};;
+    sql: (${total_trend} + ${total_additional_projected_spend}) ;;
     value_format_name: usd
     html:
     {% if value < -1000000 %}
