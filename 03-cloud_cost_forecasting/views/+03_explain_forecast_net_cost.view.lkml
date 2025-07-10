@@ -59,10 +59,10 @@ view: +project_explain_forecast_net_cost {
 
   measure: total_forecast {
     tags: ["Total Forecasted Spend", "Forecasted Spend", "Total Expected Spend", "Forecasting Spend", "Total Forecasting Spend"]
-    type: number
+    type: sum
     label: "Expected Spend"
     description: "The long-term increase or decrease in the time series data."
-    sql: (${total_trend} + ${total_additional_projected_spend}) ;;
+    sql: ${total_trend} + ${total_additional_projected_spend} ;;
     value_format_name: usd
     html:
     {% if value < -1000000 %}
@@ -82,6 +82,7 @@ view: +project_explain_forecast_net_cost {
     {% endif %}
     ;;
     drill_fields: [project_id, project_detect_anomalies_net_cost.total_net_cost, total_forecast, variance_amount]
+    # filters: [time_series_date: "after"]
   }
 
 

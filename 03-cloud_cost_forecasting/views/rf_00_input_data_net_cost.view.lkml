@@ -17,7 +17,7 @@ view: +project_avg_monthly_spend {
                 -- Filter out Marketplace purchases
                 project_name IS NOT NULL
                 -- Use last 57 weeks (~13 months) of billing data to train model
-                AND DATE(gcp_billing_export.usage_start_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
+                AND DATE(gcp_billing_export.usage_start_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (2*57*7) DAY)
                 -- AND DATE(gcp_billing_export.partition_date) >= DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), INTERVAL (57*7) DAY)
                 GROUP BY
                 1,
